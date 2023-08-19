@@ -24,7 +24,7 @@ const App = () => {
     },
   //Home
   {
-    path: "/",
+    path: "home",
     element: <Layout />,
     children: [
       {

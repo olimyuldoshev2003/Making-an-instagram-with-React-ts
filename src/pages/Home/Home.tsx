@@ -9,7 +9,9 @@ import React from 'react'
    
   return (
     <div>
-      <h1>Home</h1>
+      <div className='pl-[330px] pt-[50px]'>
+        
+      </div>
     </div>
   );
 }
