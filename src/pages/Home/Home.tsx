@@ -24,7 +24,7 @@ import {BsThreeDots} from "react-icons/bs"
 import {FiHeart} from "react-icons/fi"
 import {AiOutlineMessage} from "react-icons/ai"
 import { LuSend } from "react-icons/lu";
-import { BsBookmarkFill } from "react-icons/bs";
+import { BsBookmark } from "react-icons/bs";
 
 const Home = () => {
   return (
@@ -275,21 +275,27 @@ const Home = () => {
                   </SwiperSlide>
                 </Swiper>
               </div>
-              <div className="posts_in_home_page mt-[50px] w-[80%] m-[0_auto]">
+              <div className="posts_in_home_page mt-[50px] xl:w-[80%] md:w-[60%] sm:w-[80%] m-[0_auto]">
                 <div className="post_1">
                   <div className="block_1 flex items-center justify-between">
                     <div className="texts flex items-center">
-                      <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
+                      <Link
+                        to={`/home/profile`}
+                        className="border-[#f75757] border-[2px] rounded-full p-[1px]"
+                      >
                         <img
                           src={imgProfileLogo}
                           alt=""
                           className="w-[28px] h-[28px] rounded-full"
                         />
-                      </div>
-                      <div className="ml-[15px] flex items-center gap-[10px]">
-                        <h1 className="text-[14px] font-[700] dark:text-[#fff]">
+                      </Link>
+                      <div className="ml-[15px] flex items-center gap-[10px] flex-wrap">
+                        <Link
+                          to={`/home/profile`}
+                          className="text-[14px] font-[700] dark:text-[#fff]"
+                        >
                           olim_yuldoshev_ooo3
-                        </h1>
+                        </Link>
                         <h3 className="text-[13px] font-[400] dark:text-[#fff]">
                           <span className="mr-[5px]">1</span>min. ago
                         </h3>
@@ -319,12 +325,138 @@ const Home = () => {
                       </div>
                       <div className="icon_save">
                         <button>
-                          <BsBookmarkFill className="dark:text-[#fff] text-[25px]" />
+                          <BsBookmark className="dark:text-[#fff] text-[25px]" />
                         </button>
                       </div>
                     </div>
-                    <div className="comments">
-
+                    <div className="likes mt-[10px]">
+                      <h1 className="text-[14px] dark:text-[#fff]">
+                        <span>150</span> Likes
+                      </h1>
+                    </div>
+                    <div className="comments mt-[10px]">
+                      <h1 className="text-[14px] font-[700] dark:text-[#fff]">
+                        <Link to={`/home/profile`}>olim_yuldoshev_ooo3 </Link>
+                        <span className="ml-[5px] font-[400]">
+                          If you wanna be what you want, just work hard and
+                          never give up
+                          <br />
+                          <br />
+                          👉Follow for more👈
+                          <br /> Like please❤️
+                          <br /> Commentary don't forget✍️
+                          <br />
+                          <br /> #follow4follow #love #funny #memes #followme
+                          #cute #fun #music #viral #follower #followｍe
+                          #following #likeme #liketime #like4likes #likeforlikes
+                          #liking #likesforlike #like4follow #likesforfollow
+                          #liker #likers #liking #like4likes #follow4followback
+                          #followalways #followbackalways #followfriday
+                          #followlikes #followus #school_number_3_hisor_castle
+                          #olim_yuldoshev
+                        </span>
+                      </h1>
+                    </div>
+                    <div className="input_and_btn_for_comment mt-[10px]">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        className="w-[100%] outline-none border-b-[1px] border-b-[#000] dark:bg-[#000] dark:border-b-[#fff] dark:text-[#fff] text-[16px] dark:placeholder:text-[#fff] px-[20px] pb-[20px]"
+                        placeholder="Add a comment"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="post_2 mt-[30px]">
+                  <div className="block_1 flex items-center justify-between">
+                    <div className="texts flex items-center">
+                      <Link
+                        to={`/home/profile`}
+                        className="border-[#f75757] border-[2px] rounded-full p-[1px]"
+                      >
+                        <img
+                          src={imgProfileLogo}
+                          alt=""
+                          className="w-[28px] h-[28px] rounded-full"
+                        />
+                      </Link>
+                      <div className="ml-[15px] flex items-center gap-[10px] flex-wrap">
+                        <Link
+                          to={`/home/profile`}
+                          className="text-[14px] font-[700] dark:text-[#fff]"
+                        >
+                          olim_yuldoshev_ooo3
+                        </Link>
+                        <h3 className="text-[13px] font-[400] dark:text-[#fff]">
+                          <span className="mr-[5px]">3</span>min. ago
+                        </h3>
+                      </div>
+                    </div>
+                    <div>
+                      <button>
+                        <BsThreeDots className="text-[21px] font-[400] text-[#8c8c8c] dark:text-[#fff]" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="block_2 mt-[10px] bg-[#cecece]">
+                    <img src={imgForPost} alt="" />
+                  </div>
+                  <div className="block_3 mt-[15px]">
+                    <div className="func_icons flex justify-between">
+                      <div className="icons_1_block flex items-center gap-[14px]">
+                        <button>
+                          <FiHeart className="dark:text-[#fff] text-[25px]" />
+                        </button>
+                        <button>
+                          <AiOutlineMessage className="dark:text-[#fff] text-[25px]" />
+                        </button>
+                        <button>
+                          <LuSend className="dark:text-[#fff] text-[25px]" />
+                        </button>
+                      </div>
+                      <div className="icon_save">
+                        <button>
+                          <BsBookmark className="dark:text-[#fff] text-[25px]" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="likes mt-[10px]">
+                      <h1 className="text-[14px] dark:text-[#fff]">
+                        <span>100</span> Likes
+                      </h1>
+                    </div>
+                    <div className="comments mt-[10px]">
+                      <h1 className="text-[14px] font-[700] dark:text-[#fff]">
+                        <Link to={`/home/profile`}>olim_yuldoshev_ooo3 </Link>
+                        <span className="ml-[5px] font-[400]">
+                          If you wanna be what you want, just work hard and
+                          never give up
+                          <br />
+                          <br />
+                          👉Follow for more👈
+                          <br /> Like please❤️
+                          <br /> Commentary don't forget✍️
+                          <br />
+                          <br /> #follow4follow #love #funny #memes #followme
+                          #cute #fun #music #viral #follower #followｍe
+                          #following #likeme #liketime #like4likes #likeforlikes
+                          #liking #likesforlike #like4follow #likesforfollow
+                          #liker #likers #liking #like4likes #follow4followback
+                          #followalways #followbackalways #followfriday
+                          #followlikes #followus #school_number_3_hisor_castle
+                          #olim_yuldoshev
+                        </span>
+                      </h1>
+                    </div>
+                    <div className="input_and_btn_for_comment mt-[10px]">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        className="w-[100%] outline-none border-b-[1px] border-b-[#000] dark:bg-[#000] dark:border-b-[#fff] dark:text-[#fff] text-[16px] dark:placeholder:text-[#fff] px-[20px] pb-[20px]"
+                        placeholder="Add a comment"
+                      />
                     </div>
                   </div>
                 </div>

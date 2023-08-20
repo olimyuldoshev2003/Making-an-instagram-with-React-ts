@@ -1,5 +1,4 @@
 import { Link, Outlet } from "react-router-dom";
-import logoHeader from "/src/assets/Instagram_logo.png";
 
 //For icons
 import { GoHomeFill } from "react-icons/go";
@@ -31,7 +30,9 @@ const Layout = () => {
                 <span className="sm:block lg:hidden text-[30px]">
                   <BsInstagram />
                 </span>
-                <h1 className="insta_text text-[24px] sm:hidden lg:block dark:text-[#fff]">Instagram</h1>
+                <h1 className="insta_text text-[24px] sm:hidden lg:block dark:text-[#fff]">
+                  Instagram
+                </h1>
               </Link>
               <div>
                 <Switcher />
@@ -117,8 +118,8 @@ const Layout = () => {
           </div>
         </header>
         <Outlet />
-        <footer className="header md:hidden">
-          <ul className="flex justify-between items-center fixed w-[100%] bottom-[10px] px-[10px] dark:text-[#fff]">
+        <footer className="header md:hidden ">
+          <ul className="flex justify-between items-center fixed w-[100%] bottom-0 px-[10px] dark:text-[#fff] bg-[#fff] dark:bg-[#000] border-t-[1px] border-t-[gray] h-[50px]">
             <li>
               <Link to={`/home`}>
                 <GoHomeFill className="text-[30px]" />
