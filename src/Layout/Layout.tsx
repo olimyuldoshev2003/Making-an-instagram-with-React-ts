@@ -19,23 +19,19 @@ import imgProfileLogo from "../../src/assets/My-profile-photo.jpg";
 
 const Layout = () => {
   return (
-    <div className="dark:bg-[#000] h-[100vh]">
+    <div className="dark:bg-[#000]">
       <div className="flex_all_elements ">
         <header className="header">
           <div className="header md:flex md:flex-col p-[10px] border-r-[1px] border-r-[#d5d5d5] h-[100vh] lg:w-[280px] sm:w-[100px] dark:border-[#fff] fixed sm:hidden">
             <div className="flex items-center gap-[20px]">
               <Link
                 to={`/home`}
-                className="flex items-center gap-[20px] lg:w-[120px] sm:w-[100px] mt-[20px] hover:bg-[gray] dark:lg:bg-[#fff] dark:md:text-[#fff]"
+                className="flex items-center gap-[20px] lg:w-[120px] sm:w-[100px] mt-[20px] hover:bg-[gray] dark:md:text-[#fff]"
               >
                 <span className="sm:block lg:hidden text-[30px]">
                   <BsInstagram />
                 </span>
-                <img
-                  src={logoHeader}
-                  alt=""
-                  className="w-[120px] sm:hidden lg:block"
-                />
+                <h1 className="insta_text text-[24px] sm:hidden lg:block dark:text-[#fff]">Instagram</h1>
               </Link>
               <div>
                 <Switcher />
