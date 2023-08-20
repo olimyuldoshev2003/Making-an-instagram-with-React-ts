@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import useDarkSide from "../Switch Ui/Switcher";
+import useDarkSide from "../../Hook/useDarkSide";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 export default function Switcher() {

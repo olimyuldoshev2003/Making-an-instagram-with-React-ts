@@ -1,81 +1,165 @@
 import { Link, Outlet } from "react-router-dom";
 import logoHeader from "/src/assets/Instagram_logo.png";
 
-
 //For icons
-import {GoHomeFill} from "react-icons/go"
- import {BiSearch} from "react-icons/bi" 
-import {MdOutlineExplore} from "react-icons/md"
-import  {BiMoviePlay} from "react-icons/bi"
-import {PiMessengerLogoBold} from "react-icons/pi"
-import { AiOutlineHeart } from "react-icons/ai"
-import {CgAddR} from "react-icons/cg"
-// import Switcher from "../components/Switch Ui/Switcher";
+import { GoHomeFill } from "react-icons/go";
+import { BiSearch } from "react-icons/bi";
+import { MdOutlineExplore } from "react-icons/md";
+import { BiMoviePlay } from "react-icons/bi";
+import { PiMessengerLogoBold } from "react-icons/pi";
+import { AiOutlineHeart } from "react-icons/ai";
+import { CgAddR } from "react-icons/cg";
+import { BsInstagram } from "react-icons/bs";
+import {AiOutlineMenu} from "react-icons/ai"
 
+import Switcher from "../components/Switch Ui/Switcher";
+
+//For images
+import imgProfileLogo from "../../src/assets/My-profile-photo.jpg";
 
 const Layout = () => {
   return (
-    <div>
-      <header className="header flex flex-col p-[20px] border-r-[1px] border-r-[#d5d5d5] fixed h-[100vh] w-[300px]">
-        <div>
-          <Link
-            to={`/home`}
-            className="flex items-center gap-[20px] w-[170px] mt-[20px] hover:bg-[gray]"
-          >
-            <img src={logoHeader} alt="" className="w-[170px]" />
-          </Link>
-          {/* <Switcher/> */}
-        </div>
-        <ul className="flex flex-col gap-[20px] w-[150px]">
-          <li>
-            <Link to={`/home`} className="flex items-center gap-[20px]">
-              <GoHomeFill className="text-[26px]" />
-              <span>Home</span>
-            </Link>
-          </li>
-          <li className="flex items-center gap-[20px]">
-            <BiSearch className="text-[26px]" />
-            Search
-          </li>
-          <li>
-            <Link to={"/home/explore"} className="flex items-center gap-[20px]">
-              <MdOutlineExplore className="text-[26px]" />
-              <span>Explore</span>
-            </Link>
-          </li>
-          <li>
-            <Link to={"/home/reels"} className="flex items-center gap-[20px]">
-              <BiMoviePlay className="text-[26px]" />
-              <span>Reels</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={`/home/messages`}
-              className="flex items-center gap-[20px]"
-            >
-              <PiMessengerLogoBold className="text-[26px]" />
-              <span>Messages</span>
-            </Link>
-          </li>
-          <li className="flex items-center gap-[20px]">
-            <AiOutlineHeart className="text-[26px]" />
-            <span>Notifications</span>
-          </li>
-          <li className="flex items-center gap-[20px]">
-            <CgAddR className="text-[26px]" />
-            <span>Create</span>
-          </li>
-          <li>
-            <Link to={`/home/profile`} className="flex items-center gap-[20px]">
-              <img src="" alt="" />
-              <span>Profile</span>
-            </Link>
-          </li>
-        </ul>
-      </header>
-      <Outlet />
-      <footer className="footer"></footer>
+    <div className="dark:bg-[#000] h-[100vh]">
+      <div className="flex_all_elements ">
+        <header className="header">
+          <div className="header md:flex md:flex-col p-[10px] border-r-[1px] border-r-[#d5d5d5] h-[100vh] lg:w-[280px] sm:w-[100px] dark:border-[#fff] fixed sm:hidden">
+            <div className="flex items-center gap-[20px]">
+              <Link
+                to={`/home`}
+                className="flex items-center gap-[20px] lg:w-[120px] sm:w-[100px] mt-[20px] hover:bg-[gray] dark:lg:bg-[#fff] dark:md:text-[#fff]"
+              >
+                <span className="sm:block lg:hidden text-[30px]">
+                  <BsInstagram />
+                </span>
+                <img
+                  src={logoHeader}
+                  alt=""
+                  className="w-[120px] sm:hidden lg:block"
+                />
+              </Link>
+              <div>
+                <Switcher />
+              </div>
+            </div>
+            <ul className="flex flex-col gap-[20px] lg:w-[150px] md:w-[30px] mt-[50px]">
+              <li>
+                <Link
+                  to={`/home`}
+                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                >
+                  <GoHomeFill className="text-[30px]" />
+                  <span className="sm:hidden lg:block text-[18px]">Home</span>
+                </Link>
+              </li>
+              <li className="flex items-center gap-[20px] dark:text-[#fff]">
+                <BiSearch className="text-[30px]" />
+                <span className="sm:hidden lg:block text-[18px]">Search</span>
+              </li>
+              <li>
+                <Link
+                  to={"/home/explore"}
+                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                >
+                  <MdOutlineExplore className="text-[30px]" />
+                  <span className="sm:hidden lg:block text-[18px]">
+                    Explore
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/home/reels"}
+                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                >
+                  <BiMoviePlay className="text-[30px]" />
+                  <span className="sm:hidden lg:block text-[18px]">Reels</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`/home/messages`}
+                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                >
+                  <PiMessengerLogoBold className="text-[30px]" />
+                  <span className="sm:hidden lg:block text-[18px]">
+                    Messages
+                  </span>
+                </Link>
+              </li>
+              <li className="flex items-center gap-[20px] dark:text-[#fff]">
+                <AiOutlineHeart className="text-[30px]" />
+                <span className="sm:hidden lg:block text-[18px]">
+                  Notifications
+                </span>
+              </li>
+              <li className="flex items-center gap-[20px] dark:text-[#fff]">
+                <CgAddR className="text-[30px]" />
+                <span className="sm:hidden lg:block text-[18px]">Create</span>
+              </li>
+              <li>
+                <Link
+                  to={`/home/profile`}
+                  className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] sm:w-[90px]"
+                >
+                  <img
+                    src={imgProfileLogo}
+                    alt=""
+                    className="w-[38px] h-[38px] rounded-full"
+                  />
+                  <span className="sm:hidden lg:block text-[18px]">
+                    Profile
+                  </span>
+                </Link>
+              </li>
+            </ul>
+            <div className="mt-[40px]">
+              <button className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] sm:w-[90px]">
+                <AiOutlineMenu className="text-[30px]" />
+                <span className="sm:hidden lg:block text-[18px]">More</span>
+              </button>
+            </div>
+          </div>
+        </header>
+        <Outlet />
+        <footer className="header md:hidden">
+          <ul className="flex justify-between items-center fixed w-[100%] bottom-[10px] px-[10px] dark:text-[#fff]">
+            <li>
+              <Link to={`/home`}>
+                <GoHomeFill className="text-[30px]" />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/home/explore"}>
+                <MdOutlineExplore className="text-[30px]" />
+                <span className="sm:hidden lg:block text-[18px]">Explore</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/home/reels"}>
+                <BiMoviePlay className="text-[30px]" />
+                <span className="sm:hidden lg:block text-[18px]">Reels</span>
+              </Link>
+            </li>
+            <li>
+              <CgAddR className="text-[30px]" />
+            </li>
+            <li>
+              <Link to={`/home/messages`}>
+                <PiMessengerLogoBold className="text-[30px]" />
+              </Link>
+            </li>
+            <li>
+              <Link to={`/home/profile`} className="lg:w-[150px] md:w-[30px]">
+                <img
+                  src={imgProfileLogo}
+                  alt=""
+                  className="w-[38px] h-[38px] rounded-full"
+                />
+              </Link>
+            </li>
+          </ul>
+        </footer>
+      </div>
     </div>
   );
 };

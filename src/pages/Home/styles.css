@@ -1,0 +1,29 @@
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+.swiper {
+  width: 50%;
+  height: 100%;
+}
+
+.swiper-slide {
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor:grab;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+}
