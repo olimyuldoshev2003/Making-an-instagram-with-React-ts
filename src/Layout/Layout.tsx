@@ -19,18 +19,18 @@ import imgProfileLogo from "../../src/assets/My-profile-photo.jpg";
 const Layout = () => {
   return (
     <div className="dark:bg-[#000]">
-      <div className="flex_all_elements ">
+      <div className="flex_all_elements">
         <header className="header">
           <div className="header md:flex md:flex-col p-[10px] border-r-[1px] border-r-[#d5d5d5] h-[100vh] lg:w-[280px] sm:w-[100px] dark:border-[#fff] fixed sm:hidden">
             <div className="flex items-center gap-[20px]">
               <Link
                 to={`/home`}
-                className="flex items-center gap-[20px] lg:w-[120px] sm:w-[100px] mt-[20px] hover:bg-[gray] dark:md:text-[#fff]"
+                className="flex items-center gap-[20px] lg:w-[120px] sm:w-[100px] mt-[20px] dark:md:text-[#fff]"
               >
                 <span className="sm:block lg:hidden text-[30px]">
                   <BsInstagram />
                 </span>
-                <h1 className="insta_text text-[24px] sm:hidden lg:block dark:text-[#fff]">
+                <h1 className="insta_text text-[24px] sm:hidden lg:block dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_5px] hover:rounded-[20px]">
                   Instagram
                 </h1>
               </Link>
@@ -42,20 +42,20 @@ const Layout = () => {
               <li>
                 <Link
                   to={`/home`}
-                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                  className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px]"
                 >
                   <GoHomeFill className="text-[30px]" />
                   <span className="sm:hidden lg:block text-[18px]">Home</span>
                 </Link>
               </li>
-              <li className="flex items-center gap-[20px] dark:text-[#fff]">
+              <li className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px] cursor-pointer">
                 <BiSearch className="text-[30px]" />
                 <span className="sm:hidden lg:block text-[18px]">Search</span>
               </li>
               <li>
                 <Link
                   to={"/home/explore"}
-                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                  className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px]"
                 >
                   <MdOutlineExplore className="text-[30px]" />
                   <span className="sm:hidden lg:block text-[18px]">
@@ -66,7 +66,7 @@ const Layout = () => {
               <li>
                 <Link
                   to={"/home/reels"}
-                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                  className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px]"
                 >
                   <BiMoviePlay className="text-[30px]" />
                   <span className="sm:hidden lg:block text-[18px]">Reels</span>
@@ -75,7 +75,7 @@ const Layout = () => {
               <li>
                 <Link
                   to={`/home/messages`}
-                  className="flex items-center gap-[20px] dark:text-[#fff]"
+                  className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px]"
                 >
                   <PiMessengerLogoBold className="text-[30px]" />
                   <span className="sm:hidden lg:block text-[18px]">
@@ -83,20 +83,20 @@ const Layout = () => {
                   </span>
                 </Link>
               </li>
-              <li className="flex items-center gap-[20px] dark:text-[#fff]">
+              <li className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px] cursor-pointer">
                 <AiOutlineHeart className="text-[30px]" />
                 <span className="sm:hidden lg:block text-[18px]">
                   Notifications
                 </span>
               </li>
-              <li className="flex items-center gap-[20px] dark:text-[#fff]">
+              <li className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px] cursor-pointer">
                 <CgAddR className="text-[30px]" />
                 <span className="sm:hidden lg:block text-[18px]">Create</span>
               </li>
               <li>
                 <Link
                   to={`/home/profile`}
-                  className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] sm:w-[90px]"
+                  className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] sm:w-[90px] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:rounded-[20px]"
                 >
                   <img
                     src={imgProfileLogo}
@@ -110,9 +110,9 @@ const Layout = () => {
               </li>
             </ul>
             <div className="mt-[40px]">
-              <button className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] sm:w-[90px]">
+              <button className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] sm:w-[90px] hover:bg-[#f0eeee] dark:hover:bg-[gray] hover:p-[0px_0px] hover:rounded-[20px]">
                 <AiOutlineMenu className="text-[30px]" />
-                <span className="sm:hidden lg:block text-[18px]">More</span>
+                <span className="sm:hidden lg:block text-[18px] ">More</span>
               </button>
             </div>
           </div>

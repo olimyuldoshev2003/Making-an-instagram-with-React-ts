@@ -29,7 +29,7 @@ import { BsBookmark } from "react-icons/bs";
 const Home = () => {
   return (
     <div>
-      <div className="lg:ml-[330px] md:ml-[120px] pt-[50px]">
+      <div className="lg:ml-[330px] md:ml-[120px] pt-[50px] sm:ml-[10px]">
         <section className="section_1">
           <div className="sm:flex sm:justify-between sm:items-center sm:flex-wrap md:hidden sm:gap-[10px] p-[10px]">
             <div className="flex items-center gap-[20px]">

@@ -145,6 +145,56 @@ const SignUp = () => {
           </Link>
         </div>
       </div>
+      <div className="footer w-[90%] m-auto mt-[50px]">
+        <ul className="flex  flex-wrap gap-5 justify-center">
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Meta</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>About</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Blog</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Blog</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Help</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>API</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Privacy</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Terms</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Top Accounts</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Locations</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Instagram Lite</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Threads</Link>
+          </li>
+          <li className="text-[13px] font-[400] opacity-80">
+            <Link to={``}>Meta Verified</Link>
+          </li>
+        </ul>
+        <div className="flex justify-center my-[10px] py-5">
+          <ul>
+            <li className="text-[13px] font-[400] opacity-80">
+              <Link to={``}>© 2023 Instagram from Meta</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
