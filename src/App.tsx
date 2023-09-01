@@ -8,6 +8,7 @@ import Messages from './pages/Messages/Messages';
 import Profile from './pages/Profile/Profile';
 import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
+import Edit from './pages/Edit/Edit';
 
 
 const App = () => {
@@ -46,6 +47,10 @@ const App = () => {
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "edit",
+        element: <Edit />,
       },
       {
         path: "*",

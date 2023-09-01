@@ -16,64 +16,71 @@ const SignIn = () => {
           <img src={imgLogin} alt="" className="max-w-[350px]" />
         </div>
         <div className="block_2">
-          <div className="flex flex-col justify-center items-center gap-[20px] md:border-[1px] md:border-[#cecece] md:p-[25px_41px] sm:p-[5px] sm:w-[100%]">
-            <img src={logoInstaSignIn} alt="" />
-            <TextField
-              InputProps={{
-                style: {
-                  color: "black",
-                  width: `280px`,
-                  height: `50px`,
-                  border: `none`,
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  color: "gray",
-                  fontSize: `14px`,
-                },
-              }}
-              id="outlined-basic"
-              label="Phone, username or email adress"
-              variant="filled"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Password"
-              type="password"
-              variant="filled"
-              InputProps={{
-                style: {
-                  color: "black",
-                  width: `280px`,
-                  height: `50px`,
-                  border: `none`,
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  color: "gray",
-                  fontSize: `14px`,
-                },
-              }}
-            />
+          <div className="main_block_2 md:border-[1px] md:border-[#cecece] md:p-[25px_41px] sm:p-[5px] sm:w-[100%]">
+            <div className="flex_img_block_2 flex justify-center">
+              <img src={logoInstaSignIn} alt="" />
+            </div>
+            <form
+              action=""
+              className="flex flex-col justify-center items-center gap-[20px] mt-[20px]"
+            >
+              <TextField
+                InputProps={{
+                  style: {
+                    color: "black",
+                    width: `280px`,
+                    height: `50px`,
+                    border: `none`,
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: "gray",
+                    fontSize: `14px`,
+                  },
+                }}
+                id="outlined-basic"
+                label="Phone, username or email adress"
+                variant="filled"
+              />
+              <TextField
+                id="outlined-basic"
+                label="Password"
+                type="password"
+                variant="filled"
+                InputProps={{
+                  style: {
+                    color: "black",
+                    width: `280px`,
+                    height: `50px`,
+                    border: `none`,
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: "gray",
+                    fontSize: `14px`,
+                  },
+                }}
+              />
 
-            <Link to={`/home`}>
-              <button className="bg-[#307de2] text-[#fff] text-[15px] p-[10px] w-[280px] rounded-[10px]">
+              <button type="submit" className="bg-[#307de2] text-[#fff] text-[15px] p-[10px] w-[280px] rounded-[10px]">
                 Sign in
               </button>
-            </Link>
+            </form>
             <div className="flex items-center justify-center gap-[20px]">
               <h1 className="pb-[15px]">_______________</h1>
               <h1 className="text-[15px] font-[400] text-[gray]">OR</h1>
               <h1 className="pb-[15px]">_______________</h1>
             </div>
-            <Link to={""} className="text-[17px] text-[#2356a1] font-[700]">
-              Login with Facebook
-            </Link>
-            <Link to={``} className="text-[13px]">
-              Forgot your password
-            </Link>
+            <div className="flex flex-col justify-center items-center gap-[14px] mt-[14px]">
+              <Link to={""} className="text-[17px] text-[#2356a1] font-[700]">
+                Login with Facebook
+              </Link>
+              <Link to={``} className="text-[13px]">
+                Forgot your password
+              </Link>
+            </div>
           </div>
           <div className="mt-[8px] md:border-[1px] md:border-[#cecece] p-[25px_41px]">
             <h1 className="text-center text-[15px]">

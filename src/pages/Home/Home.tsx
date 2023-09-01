@@ -20,13 +20,15 @@ import imgForPost from "../../assets/My-photo.jpg";
 
 //For icons
 import { AiOutlineHeart } from "react-icons/ai";
-import {BsThreeDots} from "react-icons/bs"
-import {FiHeart} from "react-icons/fi"
-import {AiOutlineMessage} from "react-icons/ai"
+import { BsThreeDots } from "react-icons/bs";
+import { FiHeart } from "react-icons/fi";
+import { AiOutlineMessage } from "react-icons/ai";
 import { LuSend } from "react-icons/lu";
 import { BsBookmark } from "react-icons/bs";
 
 const Home = () => {
+  
+
   return (
     <div>
       <div className="lg:ml-[330px] md:ml-[120px] pt-[50px] sm:ml-[10px]">
@@ -594,7 +596,11 @@ const Home = () => {
                       Followed by galibr
                     </h3>
                   </div>
-                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
+                  <button
+                    className="ml-[30px] text-[#26c2e5]"
+                  >
+                    Follow
+                  </button>
                 </div>
               </div>
               <div className="links flex justify-between items-center flex-wrap text-[12px]  text-[#d4d4d4] mt-[20px] dark:text-[#fff]">
