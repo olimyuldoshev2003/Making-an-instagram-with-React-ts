@@ -12,6 +12,7 @@ import { BiUserPin } from "react-icons/bi";
 //For images
 import imgForPost from "../../assets/My-photo.jpg";
 import { Link } from "react-router-dom";
+import TabsProfile from "../../components/TabsProfile/TabsProfile";
 
 const Profile = () => {
 
@@ -46,9 +47,9 @@ const Profile = () => {
                 <FiSettings className="md:text-[20px] sm:text-[16px] ml-[10px] dark:text-[#fff]" />
               </div>
               <div className="btns flex items-center flex-wrap md:gap-[20px] sm:gap-[4px] mt-[10px] sm:max-w-[300px] md:max-w-[100%]">
-                <button className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
+                <Link to={`/home/edit`} className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
                   Edit profile
-                </button>
+                </Link>
                 <button className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
                   Show archieve
                 </button>
@@ -182,10 +183,11 @@ const Profile = () => {
           </h1>
         </div>
         <section className="transition_of_the_page_profile flex justify-between items-center mt-[20px] px-[20px]">
-          <BsFillGrid3X3GapFill className="dark:text-[#fff] text-[29px]" />
+          {/* <BsFillGrid3X3GapFill className="dark:text-[#fff] text-[29px]" />
           <BiMoviePlay className="dark:text-[#fff] text-[29px]" />
           <BsBookmark className="dark:text-[#fff] text-[29px]" />
-          <BiUserPin className="dark:text-[#fff] text-[29px]" />
+          <BiUserPin className="dark:text-[#fff] text-[29px]" /> */}
+          <TabsProfile/>
         </section>
         <section className="photos mt-[30px] grid grid-cols-3 gap-[5px]">
           <img src={imgForPost} alt="" />

@@ -24,98 +24,108 @@ const SignUp = () => {
           >
             Continue with Facebook
           </Link>
-          <button className="bg-[#e4e4e4] text-[#000] text-[15px] p-[10px] w-[280px] rounded-[10px] outline-none font-[700] flex items-center justify-evenly">
+          <Link
+            to={`https://myaccount.google.com/`}
+            className="bg-[#e4e4e4] text-[#000] text-[15px] p-[10px] w-[280px] rounded-[10px] outline-none font-[700] flex items-center justify-evenly"
+          >
             <img src={googleIcon} alt="" />
             Continue with google
-          </button>
+          </Link>
           <div className="flex items-center justify-center gap-[20px]">
             <h1 className="pb-[15px]">_______________</h1>
             <h1 className="text-[15px] font-[400] text-[gray]">OR</h1>
             <h1 className="pb-[15px]">_______________</h1>
           </div>
-          <TextField
-            InputProps={{
-              style: {
-                color: "black",
-                width: `280px`,
-                height: `50px`,
-                border: `none`,
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: "gray",
-                fontSize: `14px`,
-              },
-            }}
-            id="outlined-basic"
-            label="Mobile number or Email"
-            variant="filled"
-          />
-          <TextField
-            id="outlined-basic"
-            label="Full name"
-            variant="filled"
-            InputProps={{
-              style: {
-                color: "black",
-                width: `280px`,
-                height: `50px`,
-                border: `none`,
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: "gray",
-                fontSize: `14px`,
-              },
-            }}
-          />
-          <TextField
-            InputProps={{
-              style: {
-                color: "black",
-                width: `280px`,
-                height: `50px`,
-                border: `none`,
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: "gray",
-                fontSize: `14px`,
-              },
-            }}
-            id="outlined-basic"
-            label="Username"
-            variant="filled"
-          />
-          <TextField
-            id="outlined-basic"
-            label="Password"
-            type="password"
-            variant="filled"
-            InputProps={{
-              style: {
-                color: "black",
-                width: `280px`,
-                height: `50px`,
-                border: `none`,
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: "gray",
-                fontSize: `14px`,
-              },
-            }}
-          />
+          <form
+            action=""
+            className="flex flex-col justify-center items-center gap-[20px]   sm:w-[100%] md:w-[350px]"
+          >
+            <TextField
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+              id="outlined-basic"
+              label="Mobile number or Email"
+              variant="filled"
+              type="email"
+            />
+            <TextField
+              id="outlined-basic"
+              label="Full name"
+              variant="filled"
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+            />
+            <TextField
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+              id="outlined-basic"
+              label="Username"
+              variant="filled"
+            />
+            <TextField
+              id="outlined-basic"
+              label="Password"
+              type="password"
+              variant="filled"
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+            />
 
-          <Link to={`/home`}>
-            <button className="bg-[#307de2] text-[#fff] text-[15px] p-[10px] w-[280px] rounded-[10px]">
+            <button
+              type="submit"
+              className="bg-[#307de2] text-[#fff] text-[15px] p-[10px] w-[280px] rounded-[10px]"
+            >
               Sign up
             </button>
-          </Link>
+          </form>
           <p className="text-[14px] text-[gray] text-center">
             People who use our service may have uploaded your contact
             information to Instagram. <Link to={``}>Learn more</Link>

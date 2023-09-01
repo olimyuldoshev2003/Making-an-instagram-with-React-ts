@@ -1,38 +1,54 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 
 // Define a type for the slice state
 interface CounterState {
-  value: number;
+  modalCreate: boolean;
+  modalMore: boolean;
+  like: boolean;
+  closeEdit: boolean;
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
-  value: 0,
+  modalCreate: false,
+  modalMore: false,
+  like: false,
+  closeEdit: true,
+
+
 };
 
 export const counterSlice = createSlice({
-  name: "counter",
-  // `createSlice` will infer the state type from the `initialState` argument
+  name: "values",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    openAddModal: (state: CounterState) => {
+      state.modalCreate = true
+      
     },
-    decrement: (state) => {
-      state.value -= 1;
+    
+    handleClose(state: CounterState) {
+      state.modalCreate = false
     },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+
+    handleCloseMore(state: CounterState) {
+      state.modalMore = false
     },
+
+    openModalMore(state: CounterState) {
+      
+      state.modalMore = true
+    },
+    // closePageEdit(state: CounterState) {
+      
+    // }
+
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.values.value;
+export const selectCount = (state: RootState) => state.values;
+export const { openAddModal, handleClose, openModalMore, handleCloseMore} = counterSlice.actions;
 
 export default counterSlice.reducer;

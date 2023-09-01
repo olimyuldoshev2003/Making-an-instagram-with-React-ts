@@ -6,6 +6,10 @@ import { IArr_obj, IMessageUser } from "../../Types/types";
 //For icons
 import {IoMdArrowDropdown} from "react-icons/io"
 import {BiEdit} from "react-icons/bi"
+import { VscSmiley } from "react-icons/vsc";
+import { HiOutlineMicrophone } from "react-icons/hi";
+import { PiImageLight } from "react-icons/pi";
+import { BsHeart } from "react-icons/bs";
 
 import a from "../../assets/for-message/a.jpeg"
 import b from "../../assets/for-message/b.jpg";
@@ -16,6 +20,7 @@ import f from "../../assets/for-message/f.jpg";
 import g from "../../assets/for-message/g.jpg";
 import h from "../../assets/for-message/h.jpg";
 import j from "../../assets/for-message/j.jpg";
+import BasicTabs from '../../components/Tabs/Tabs';
 
 const Messages = () => {
 
@@ -25,7 +30,7 @@ const [users, setUsers] = useState<IMessageUser[]>([
   {
     id: 1,
     img: a,
-    name: "cristiano",
+    name: "Cristiano",
     status: "Online 24 hours ago",
     online: false,
     messages: [
@@ -180,19 +185,19 @@ const [users, setUsers] = useState<IMessageUser[]>([
 
   return (
     <div>
-      <div className="lg:ml-[330px] md:ml-[120px] pt-[50px]">
-        <section className="main">
-          <div className="users max-w-[357px]">
-            <div className="child_1_of_users flex items-center justify-between">
-              <button className="flex items-center gap-[10px] sm:text-[14px] md:text-[21px] font-[700] dark:text-[#fff]">
+      <div className="lg:ml-[330px] md:ml-[90px] pt-[50px]">
+        <section className="main flex">
+          <div className="users ml-[16px]">
+            <div className="child_1_of_users flex items-center lg:justify-between sm:justify-center">
+              <button className="lg:flex lg:items-center lg:gap-[10px] sm:hidden md:text-[21px] font-[700] dark:text-[#fff]">
                 olim_yuldoshev_ooo3 <IoMdArrowDropdown />
               </button>
-              <button className="flex items-center gap-[10px] sm:text-[14px] md:text-[32px] font-[700] dark:text-[#fff]">
+              <button className="flex items-center gap-[10px] sm:text-[34px] md:text-[32px] font-[700] dark:text-[#fff] ">
                 <BiEdit />
               </button>
             </div>
-            <div className="child_2_of_transitions flex items-center justify-between mt-[20px] text-[16px] text-[#000] dark:text-[#fff]">
-              <button className="p-[10px_30px] hover:border-b-[1px] hover:border-b-[gray] dark:border-b-[#fff]">
+            <div className="child_2_of_transitions md:flex items-center md:justify-between sm:hidden mt-[20px] text-[16px] text-[#000] dark:text-[#fff]">
+              {/* <button className="p-[10px_30px] hover:border-b-[1px] hover:border-b-[gray] dark:border-b-[#fff]">
                 Primary
               </button>
               <button className="p-[10px_30px] hover:border-b-[1px] hover:border-b-[gray] dark:border-b-[#fff]">
@@ -200,9 +205,11 @@ const [users, setUsers] = useState<IMessageUser[]>([
               </button>
               <button className="p-[10px_30px] hover:border-b-[1px] hover:border-b-[gray] dark:border-b-[#fff]">
                 Requests
-              </button>
+              </button> */}
+
+              <BasicTabs />
             </div>
-            <div className="some_users overflow-scroll h-full pb-[110px] duration-300 mt-[15px] md:mt-0">
+            <div className="some_users h-full pb-[110px] mt-[15px] md:mt-0 sm:w-[120px] ">
               {users.map((user: IMessageUser) => {
                 return (
                   <C_MessageUser
@@ -213,7 +220,80 @@ const [users, setUsers] = useState<IMessageUser[]>([
               })}
             </div>
           </div>
-          <div className="page_of_messages"></div>
+          <div className="mt-[78px] w-[60%] ml-[20px] md:ml-[50px] sm:ml-[60px] pt-[35px] px-[5px] md:w-[70%] sm:w-[100%] md:block">
+            {/* top */}
+            <div className="flex flex-col items-center">
+              {/* img */}
+              <div className="rounded-full w-[100px] h-[100px]">
+                <img
+                  src={users[idx - 1].img}
+                  className="rounded-full w-[100px] h-[100px]"
+                />
+              </div>
+              {/* nam */}
+              <p className="text-[20px] mt-[10px] font-[500] dark:text-[#fff]">
+                {users[idx - 1].name}
+              </p>
+              {/* status */}
+              {users[idx - 1].online ? (
+                <p className="dark:text-[#fff] md:hidden lg:block">
+                  Online now
+                </p>
+              ) : (
+                <p className="dark:text-[#fff] md:hidden lg:block">
+                  {users[idx - 1].status}
+                </p>
+              )}
+              {/* btn */}
+              <button className="font-[500] outline-none text-[14px] mt-[5px] px-[16px] py-[6px] bg-gray-200 duration-100 hover:bg-gray-300 rounded-[7px]">
+                View profile
+              </button>
+            </div>
+            {/* messages */}
+            <div className="flex flex-col w-[100%] gap-[30px] mt-[50px]">
+              {users[idx - 1].messages.map((mess: IArr_obj) => {
+                return (
+                  <div>
+                    {mess.hwo === "me" ? (
+                      <div className="flex justify-end">
+                        <p className="rounded-full px-[8px] py-[4px] bg-sky-500 text-[#fff] md:text-[14px] sm:text-[10px]">
+                          {mess.message}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex gap-[5px]">
+                        <div>
+                          <p className="rounded-full px-[8px] py-[4px] bg-gray-200 text-[#000] md:text-[14px] sm:text-[10px]">
+                            {mess.message}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    <div className=" sm:w-[67%] lg:w-[38%] xl:w-[48%] md:w-[72%]  ml-[20px] bg-white py-[12px] pl-[5px]   sm:pr-[10px]  fixed bottom-[55px] md:bottom-0 right-0 dark:bg-[#000]">
+                      <form className="border pl-[15px] flex items-center border-gray-300 justify-between gap-[15px] pr-[20px] py-[10px] rounded-full">
+                        <div className="flex items-center gap-[15px] w-[100%]">
+                          <VscSmiley className="text-[30px] cursor-pointer dark:text-[#fff]" />
+                          {/* Input Message */}
+                          <form className="w-[100%]">
+                            <input
+                              type="text"
+                              placeholder="Write a massege..."
+                              className="outline-none w-[100%] dark:bg-[#000] dark:text-[#fff]"
+                            />
+                          </form>
+                        </div>
+                        <div className="flex items-center gap-[10px]">
+                          <HiOutlineMicrophone className="text-[25px] cursor-pointer sm:hidden md:block dark:text-[#fff]" />
+                          <PiImageLight className="text-[32px] cursor-pointer sm:hidden md:block dark:text-[#fff]" />
+                          <BsHeart className="text-[22px] cursor-pointer ml-[2px] sm:hidden md:block dark:text-[#fff]" />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </section>
       </div>
     </div>
