@@ -27,7 +27,6 @@ import { LuSend } from "react-icons/lu";
 import { BsBookmark } from "react-icons/bs";
 
 const Home = () => {
-  
 
   return (
     <div>
@@ -54,8 +53,8 @@ const Home = () => {
             </div>
           </div>
           <div className="main flex justify-between ">
-            <div className="block_1 xl:w-[60%] sm:w-[100%] ">
-              <div className="swiper_home mt-[30px]">
+            <div className="block_1 xl:w-[60%] sm:w-[100%] dark:bg-[#000]">
+              <div className="swiper_home mt-[30px] dark:bg-[#000]">
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={2}
@@ -96,7 +95,7 @@ const Home = () => {
                   className="mySwiper"
                 >
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -108,7 +107,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000]  ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -122,7 +121,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -136,7 +135,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -150,7 +149,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -164,7 +163,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -178,7 +177,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -192,7 +191,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -206,7 +205,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -220,7 +219,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -234,7 +233,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -248,7 +247,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -262,7 +261,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -596,11 +595,7 @@ const Home = () => {
                       Followed by galibr
                     </h3>
                   </div>
-                  <button
-                    className="ml-[30px] text-[#26c2e5]"
-                  >
-                    Follow
-                  </button>
+                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
                 </div>
               </div>
               <div className="links flex justify-between items-center flex-wrap text-[12px]  text-[#d4d4d4] mt-[20px] dark:text-[#fff]">

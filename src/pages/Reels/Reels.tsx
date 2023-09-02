@@ -10,20 +10,16 @@ const Reels = () => {
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
-    <div className="ml-[200px]">
-      <section className="flex flex-col gap-[50px]  items-center gap-y-[50px] justify-center bg-[#FFF] text-[#FFF] dark:bg-black py-[20px] md:pb-[80px]">
-        <div className="reel__container rounded-[10px] relative bg-black sm:w-[90%]  md:w-[380px] min-h-[80vh] flex flex-col justify-between">
+    <div className="md:ml-[200px]">
+      <section className="flex flex-col  gap-[50px]  items-center gap-y-[50px] justify-center bg-[#FFF] text-[#FFF] dark:bg-black py-[20px] md:pb-[80px]">
+        <div className="reel__container rounded-[10px] relative bg-black sm:w-[90%]  md:w-[380px] min-h-[80vh] flex flex-col justify-between ">
           <div className="reel__content px-[15px] pb-[20px] bg-transparent absolute z-10 bottom-[10px] left-0 w-full flex  justify-between">
             <div className="reel__desc">
               <div className="reel__user">
-                <img
-                  title="a"
-                  src={person}
-                  className="reel__avatar w-[30px] h-[30px] rounded-full"
-                />
+                <img title="a" src={person} className="reel__avatar " />
                 <p className="reel__username">olim_yuldoshev_ooo3</p>
-                <button className=" bg-transparent font-[600] py-[0.15rem] px-[0.3rem]">
-                  Подписаться
+                <button className=" bg-transparent font-[600] py-[0.15rem] px-[0.3rem] text-[#3e98eb] outline-none">
+                  Follow
                 </button>
               </div>
               <p className="reel__caption">Interesting video</p>
@@ -240,14 +236,10 @@ const Reels = () => {
           <div className="reel__content px-[15px] pb-[20px] bg-transparent absolute z-10 bottom-[10px] left-0 w-full flex  justify-between">
             <div className="reel__desc">
               <div className="reel__user">
-                <img
-                  title="salom"
-                  src={person}
-                  className="reel__avatar w-[30px] h-[30px] rounded-full"
-                />
+                <img title="salom" src={person} className="reel__avatar " />
                 <p className="reel__username">olim_yuldoshev_ooo3</p>
-                <button className=" bg-transparent font-[600] py-[0.15rem] px-[0.3rem]">
-                  Подписаться
+                <button className=" bg-transparent font-[600] py-[0.15rem] px-[0.3rem] text-[#3e98eb] outline-none">
+                  Follow
                 </button>
               </div>
               <p className="reel__caption">Interesting reels</p>

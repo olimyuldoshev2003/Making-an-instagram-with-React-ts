@@ -10,55 +10,66 @@ import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
 import Edit from './pages/Edit/Edit';
 
+import ProtectedRoute from "./utils/ProtectedRoute";
+import AuthCheck from "./utils/AuthCheck";
+
 
 const App = () => {
   const router = createBrowserRouter([
-  //Login
-  {
-    path:"/",
-    element: <SignIn />,
+    //Login
+    {
+      path: "/",
+      element: (
+        <AuthCheck>
+          <SignIn />
+        </AuthCheck>
+      ),
     },
-  //SignUp
-  {
-    path: "signup",
-    element: <SignUp />,
+    //SignUp
+    {
+      path: "signup",
+      element: <SignUp />,
     },
-  //Home
-  {
-    path: "home",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "explore",
-        element: <Explore />,
-      },
-      {
-        path: "reels",
-        element: <Reels />,
-      },
-      {
-        path: "messages",
-        element: <Messages />,
-      },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
-      {
-        path: "edit",
-        element: <Edit />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
-  },
-]);
+    //Home
+    {
+      path: "home",
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "explore",
+          element: <Explore />,
+        },
+        {
+          path: "reels",
+          element: <Reels />,
+        },
+        {
+          path: "messages",
+          element: <Messages />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
+        },
+        {
+          path: "edit",
+          element: <Edit />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+  ]);
 
   // The `state` arg is correctly typed as `RootState` already
 

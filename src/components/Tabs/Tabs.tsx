@@ -46,18 +46,20 @@ export default function BasicTabs() {
 
 return (
   <Box sx={{ width: "100%" }}>
-        <div className="child_2_of_transitions lg:flex  lg:flex-col sm:hidden mt-[20px] text-[16px] text-[#000] dark:text-[#fff]">
-    <Box sx={{ borderBottom: 1, borderColor: "divider" }} className="dark:bg-[#fff]">
-                <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="basic tabs example"
+    <div className="child_2_of_transitions lg:flex  lg:flex-col sm:hidden mt-[20px] text-[16px] text-[#000] dark:text-[#fff]">
+      <Box
+        sx={{ borderBottom: 1, borderColor: "divider" }}
       >
-        <Tab label="Primary" {...a11yProps(0)} />
-        <Tab label="General" {...a11yProps(1)} />
-        <Tab label="Requests" {...a11yProps(2)} />
-      </Tabs>
-    </Box>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label={<h1 className="dark:text-[#fff]">Primary</h1>} {...a11yProps(0)} />
+          <Tab label={<h1 className="dark:text-[#fff]">General</h1>} {...a11yProps(1)} />
+          <Tab label={<h1 className="dark:text-[#fff]">Requests</h1>} {...a11yProps(2)} />
+        </Tabs>
+      </Box>
       {/* <CustomTabPanel value={value} index={0}>
         Primary
       </CustomTabPanel>

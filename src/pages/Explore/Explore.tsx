@@ -3,8 +3,10 @@ import React from "react";
 const Explore = () => {
   return (
     <div>
-      <div className="lg:ml-[280px] md:ml-[90px] pt-[50px] dark:bg-[#000] bg-[#000]">
-          <h1 className="text-[#fff] text-center text-[30px]">Explore some pages</h1>
+      <div className="lg:ml-[280px] md:ml-[90px] pt-[50px] bg-[#303030]">
+        <h1 className="text-[#fff] text-center text-[30px]">
+          Explore some images
+        </h1>
         <div className=" flex justify-between flex-wrap gap-[10px] mt-[30px]">
           <img
             className="w-[32.3%] h-[70vh]"

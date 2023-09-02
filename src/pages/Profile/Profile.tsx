@@ -1,5 +1,11 @@
 import React from "react";
 import imgProfileLogo from "../../assets/My-profile-photo.jpg";
+import myFavPhoto1 from "../../assets/My photos/My_fav_photo_1.jpg"
+import myFavPhoto2 from "../../assets/My photos/My_fav_photo_2.jpg"
+import myFavPhoto3 from "../../assets/My photos/My_fav_photo_3.jpg"
+import myFavPhoto4 from "../../assets/My photos/My_fav_photo_4.jpg"
+import myFavPhoto5 from "../../assets/My photos/My_fav_photo_5.jpg"
+
 import { FiSettings } from "react-icons/fi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
@@ -15,15 +21,14 @@ import { Link } from "react-router-dom";
 import TabsProfile from "../../components/TabsProfile/TabsProfile";
 
 const Profile = () => {
+  // const Link:React.ForwardRefExoticComponent<
+  //   LinkProps & React.RefAttributes<HTMLAnchorElement>
+  // >;
 
-// const Link:React.ForwardRefExoticComponent<
-//   LinkProps & React.RefAttributes<HTMLAnchorElement>
-// >;
-  
   return (
     <div>
       <div className="lg:ml-[330px] md:ml-[120px] pt-[50px] sm:ml-[10px]">
-        <header className="navbar sm:flex sm:justify-between sm:items-center sm:flex-wrap md:hidden px-[40px] text-[20px] fixed top-0 w-full border-b-[1px] border-b-[#cbc8c8] py-[10px] dark:border-b-[#fff] dark:text-[#fff] bg-[#fff] dark:bg-[#000]">
+        <header className="navbar sm:flex sm:justify-between sm:items-center sm:flex-wrap md:hidden px-[40px] text-[20px] fixed top-0 z-20 w-full border-b-[1px] border-b-[#cbc8c8] py-[10px] dark:border-b-[#fff] dark:text-[#fff] bg-[#fff] dark:bg-[#000]">
           <FiSettings />
           <button className="flex items-center gap-[10px] sm:text-[14px] md:text-[18px]">
             olim_yuldoshev_ooo3 <IoMdArrowDropdown />
@@ -47,7 +52,10 @@ const Profile = () => {
                 <FiSettings className="md:text-[20px] sm:text-[16px] ml-[10px] dark:text-[#fff]" />
               </div>
               <div className="btns flex items-center flex-wrap md:gap-[20px] sm:gap-[4px] mt-[10px] sm:max-w-[300px] md:max-w-[100%]">
-                <Link to={`/home/edit`} className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
+                <Link
+                  to={`/home/edit`}
+                  className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]"
+                >
                   Edit profile
                 </Link>
                 <button className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
@@ -69,24 +77,17 @@ const Profile = () => {
                 </h1>
               </div>
               <div className="mt-[10px] md:flex flex-col md:items-start md:justify-start w-[130px] md:gap-[2px] text-[15px] sm:hidden dark:text-[#fff]">
-                <h3 className="font-[700]">Olim Yuldoshev</h3>
-                <h3>Software daveloper</h3>
-                <h4 className="font-[700]">Student of TNU</h4>
-                <h4 className="font-[700]">Programmer</h4>
-              </div>
-              <div className="md:mt-[10px] md:flex md:flex-col md:gap-[2px] sm:hidden max-w-[240px]">
-                <h3 className="font-[700] dark:text-[#fff]">
-                  Follow{" "}
-                  <Link to={``}><span className="font-[500]">
-                    @coding_with_olim_yuldoshev
-                  </span></Link>
+                <h3 className="text-[14px]">Olim Yuldoshev</h3>
+                <h3 className="text-[14px]">Software daveloper </h3>
+                <h3 className="font-[500] text-[14px]">
+                  Student of TNU <br /> Programmer <br /> Follow
+                  <Link to={``} className="ml-[10px]">
+                    <span className="font-[500]">
+                      @coding_with_olim_yuldoshev
+                    </span>
+                  </Link>
+                  🎂-19.11.2003. <br /> Everything will be, but not immediately.
                 </h3>
-                <h3 className="text-[14px] dark:text-[#fff] font-[400]">
-                  🎂-19.11.2003.
-                </h3>
-                <h4 className="text-[17px] font-[400] dark:text-[#fff]">
-                  Everything will be, but not immediately.
-                </h4>
               </div>
             </div>
           </div>
@@ -94,22 +95,19 @@ const Profile = () => {
         <div className="texts_in_mobile sm:block md:hidden">
           <div>
             <div className="mt-[10px] flex flex-col items-start justify-start w-[130px] gap-[2px] text-[15px] dark:text-[#fff]">
-              <h3 className="font-[700]">Olim Yuldoshev</h3>
-              <h3>Software daveloper</h3>
-              <h4 className="font-[700]">Student of TNU</h4>
-              <h4 className="font-[700]">Programmer</h4>
+              <h3 className="text-[14px]">Olim Yuldoshev</h3>
+              <h3 className="text-[14px]">Software daveloper </h3>
+              <h3 className="font-[500] text-[14px]">
+                Student of TNU <br /> Programmer <br /> Follow
+                <Link to={``}>
+                  <span className="font-[500]">
+                    @coding_with_olim_yuldoshev
+                  </span>
+                </Link>
+                🎂-19.11.2003. Everything will be, but not immediately.
+              </h3>
             </div>
             <div className="mt-[10px] flex flex-col gap-[2px]  max-w-[240px]">
-              <h3 className="font-[700] flex items-center gap-[10px] flex-wrap dark:text-[#fff]">
-                Follow{" "}
-                <span className="font-[500]">@coding_with_olim_yuldoshev</span>
-              </h3>
-              <h3 className="text-[14px] dark:text-[#fff] font-[400]">
-                🎂-19.11.2003.
-              </h3>
-              <h4 className="text-[17px] font-[400] dark:text-[#fff]">
-                Everything will be, but not immediately.
-              </h4>
               <div className="md:flex md:items-center md:flex-wrap md:gap-[10px] sm:hidden mt-[10px]">
                 <h1 className="text-[20px] dark:text-[#fff]">
                   <span className="font-[700]">0</span> posts
@@ -187,15 +185,27 @@ const Profile = () => {
           <BiMoviePlay className="dark:text-[#fff] text-[29px]" />
           <BsBookmark className="dark:text-[#fff] text-[29px]" />
           <BiUserPin className="dark:text-[#fff] text-[29px]" /> */}
-          <TabsProfile/>
+          <TabsProfile />
         </section>
         <section className="photos mt-[30px] grid grid-cols-3 gap-[5px]">
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
+          <div>
+            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
+          </div>
+          <div>
+            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
+          </div>
+          <div>
+            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
+          </div>
+          <div>
+            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
+          </div>
+          <div>
+            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
+          </div>
+          <div>
+            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
+          </div>
         </section>
         <div className="footer w-[90%] m-auto mt-[50px]">
           <ul className="flex  flex-wrap gap-5 justify-center">

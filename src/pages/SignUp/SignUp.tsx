@@ -1,15 +1,45 @@
-
-
-
 //For images
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoInstaSignUp from "../../assets/LOGO (1).png";
 import logoAppStore from "../../assets/image 4.png";
 import logoGooglePlay from "../../assets/image 5.png";
 import { TextField } from "@mui/material";
-import googleIcon from "../../assets/google.png"
+import googleIcon from "../../assets/google.png";
+import { message } from "antd";
+import { useState } from "react";
+import { axiosRequest } from "../../utils/axiosRequest";
 
 const SignUp = () => {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPasword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const user = {
+      userName: name,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+    try {
+      const { data } = await axiosRequest.post("/Account/register", user);
+      if (
+        data.statusCode === 200
+        // &&
+        // data.data !== "Your username or password is incorrect!!!"
+      ) {
+        navigate("/");
+      }
+      // else {
+      //   message.error("Wrong password or login !");
+      // }
+    } catch (error) {}
+  }
+
   return (
     <div>
       <div className="signUp flex justify-center items-center flex-col py-[20px]">
@@ -39,6 +69,9 @@ const SignUp = () => {
           <form
             action=""
             className="flex flex-col justify-center items-center gap-[20px]   sm:w-[100%] md:w-[350px]"
+            onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+              onSubmit(event)
+            }
           >
             <TextField
               InputProps={{
@@ -56,51 +89,65 @@ const SignUp = () => {
                 },
               }}
               id="outlined-basic"
-              label="Mobile number or Email"
-              variant="filled"
-              type="email"
-            />
-            <TextField
-              id="outlined-basic"
               label="Full name"
               variant="filled"
-              InputProps={{
-                style: {
-                  color: "black",
-                  width: `280px`,
-                  height: `50px`,
-                  border: `none`,
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  color: "gray",
-                  fontSize: `14px`,
-                },
-              }}
+              type="text"
+              value={name}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setName(event.target.value)
+              }
             />
             <TextField
-              InputProps={{
-                style: {
-                  color: "black",
-                  width: `280px`,
-                  height: `50px`,
-                  border: `none`,
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  color: "gray",
-                  fontSize: `14px`,
-                },
-              }}
               id="outlined-basic"
-              label="Username"
+              label="Email"
               variant="filled"
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+              type="email"
+              value={email}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(event.target.value)
+              }
+            />
+            <TextField
+              type="password"
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+              id="outlined-basic"
+              variant="filled"
+              label="Password"
+              value={password}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPasword(event.target.value)
+              }
             />
             <TextField
               id="outlined-basic"
-              label="Password"
+              label="Confirm password"
               type="password"
               variant="filled"
               InputProps={{
@@ -117,6 +164,10 @@ const SignUp = () => {
                   fontSize: `14px`,
                 },
               }}
+              value={confirmPassword}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setConfirmPassword(event.target.value)
+              }
             />
 
             <button
@@ -207,6 +258,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;
