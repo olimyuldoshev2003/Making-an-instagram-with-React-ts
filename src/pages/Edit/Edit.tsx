@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Edit = () => {
   return (
-    <div className="max-w-[700px] sm:mx-auto md:ml-[105px] lg:ml-[380px]">
+    <div className="max-w-[700px] sm:mx-auto md:ml-[105px] lg:ml-[380px] pt-[40px]">
       {/* navbar */}
       <nav className="border-b md:hidden border-gray-300 top-0 fixed justify-center w-full py-[8px] px-[20px] bg-white flex items-center dark:bg-[#000]">
         <Link
@@ -56,7 +56,7 @@ const Edit = () => {
             <input
               type="text"
               placeholder="Website"
-              className="bg-gray-200/70 outline-none mt-[4px] border border-gray-300 px-[10px] py-[2px] rounded w-full"
+              className="bg-gray-200/70 outline-none mt-[4px] border border-gray-300 px-[10px] py-[2px] rounded w-full dark:text-[#000]"
             />
             <p className="text-[12px] leading-[14px] text-gray-500 mt-[6px] dark:text-[#fff]">
               Links can only be changed in the mobile version. Go to the
@@ -64,7 +64,7 @@ const Edit = () => {
             </p>
             {/* about me */}
             <p className="font-[500] mt-[28px] dark:text-[#fff]">About Me</p>
-            <textarea className="mt-[4px] border outline-none border-gray-300 px-[10px] py-[2px] rounded w-full"></textarea>
+            <textarea className="mt-[4px] border outline-none border-gray-300 px-[10px] py-[2px] rounded w-full dark:text-[#000]"></textarea>
             <p className="text-[12px] leading-[14px] text-gray-500 mt-[6px] dark:text-[#fff]">
               0 / 150
             </p>
@@ -74,7 +74,7 @@ const Edit = () => {
               type="text"
               value={"man"}
               placeholder="man"
-              className="outline-none mt-[4px] border border-gray-300 px-[10px] py-[2px] rounded w-full"
+              className="outline-none mt-[4px] border border-gray-300 px-[10px] py-[2px] rounded w-full dark:text-[#000]"
             />
             <p className="text-[12px] leading-[14px] text-gray-500 mt-[6px] dark:text-[#fff]">
               This information will not appear on your public profile.
@@ -84,7 +84,11 @@ const Edit = () => {
               Show recommended accounts in profiles
             </p>
             <div className="flex items-center gap-[10px] mt-[6px]">
-              <input type="checkbox" checked={true} />
+              <input
+                type="checkbox"
+                checked={true}
+                className="dark:text-[#000]"
+              />
               <p className="leading-[16px] text-[14px] font-[500] dark:text-[#fff]">
                 Select if you want people to see similar recommended accounts on
                 your profile and have your account recommended on other
@@ -96,7 +100,7 @@ const Edit = () => {
             </div>
             <button
               type="submit"
-              className="bg-sky-500/30 text-[14px] rounded-[8px] px-[14px] py-[4px] text-white mt-[25px]"
+              className="bg-sky-500 text-[14px] rounded-[8px] px-[14px] py-[4px] text-white mt-[25px]"
             >
               Send
             </button>

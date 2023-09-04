@@ -207,7 +207,7 @@ const SignUp = () => {
         </div>
       </div>
       <div className="footer w-[90%] m-auto mt-[50px]">
-        <ul className="flex  flex-wrap gap-5 justify-center">
+        <ul className="flex  flex-wrap gap-5 justify-center dark:text-[#fff]">
           <li className="text-[13px] font-[400] opacity-80">
             <Link to={``}>Meta</Link>
           </li>
@@ -249,7 +249,7 @@ const SignUp = () => {
           </li>
         </ul>
         <div className="flex justify-center my-[10px] py-5">
-          <ul>
+          <ul className="dark:text-[#fff]">
             <li className="text-[13px] font-[400] opacity-80">
               <Link to={``}>© 2023 Instagram from Meta</Link>
             </li>

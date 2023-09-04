@@ -10,20 +10,26 @@ import { FiSettings } from "react-icons/fi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import { BiMoviePlay } from "react-icons/bi";
-import { BsBookmark } from "react-icons/bs";
-import { BiUserPin } from "react-icons/bi";
+// import { BsFillGrid3X3GapFill } from "react-icons/bs";
+// import { BiMoviePlay } from "react-icons/bi";
+// import { BsBookmark } from "react-icons/bs";
+// import { BiUserPin } from "react-icons/bi";
 
 //For images
-import imgForPost from "../../assets/My-photo.jpg";
 import { Link } from "react-router-dom";
 import TabsProfile from "../../components/TabsProfile/TabsProfile";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const Profile = () => {
   // const Link:React.ForwardRefExoticComponent<
   //   LinkProps & React.RefAttributes<HTMLAnchorElement>
   // >;
+
+  const dispatch = useAppDispatch()
+
+  const posts = useAppSelector((store)=>store.values.posts)
+  const follower = useAppSelector((store)=>store.values.follower)
+  const following = useAppSelector((store) => store.values.following);
 
   return (
     <div>
@@ -41,7 +47,7 @@ const Profile = () => {
               <img
                 src={imgProfileLogo}
                 alt=""
-                className="md:w-[138px] md:h-[138px] sm:w-[52px] sm:h-[52px] rounded-full"
+                className="md:w-[138px] sm:w-[63px] rounded-full"
               />
             </div>
             <div>
@@ -65,15 +71,15 @@ const Profile = () => {
                   Advertising tool
                 </button>
               </div>
-              <div className="md:flex md:items-center md:flex-wrap md:gap-[10px] sm:hidden mt-[10px]">
+              <div className="md:flex md:items-center md:flex-wrap md:gap-[20px] sm:hidden mt-[10px]">
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">0</span> posts
+                  <span className="font-[700]">{posts}</span> posts
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">1000</span> Followers
+                  <span className="font-[700]">{follower}</span> Followers
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">100</span> Following
+                  <span className="font-[700]">{following}</span> Following
                 </h1>
               </div>
               <div className="mt-[10px] md:flex flex-col md:items-start md:justify-start w-[130px] md:gap-[2px] text-[15px] sm:hidden dark:text-[#fff]">
@@ -100,7 +106,7 @@ const Profile = () => {
               <h3 className="font-[500] text-[14px]">
                 Student of TNU <br /> Programmer <br /> Follow
                 <Link to={``}>
-                  <span className="font-[500]">
+                  <span className="font-[500] ml-[15px]">
                     @coding_with_olim_yuldoshev
                   </span>
                 </Link>
@@ -110,13 +116,13 @@ const Profile = () => {
             <div className="mt-[10px] flex flex-col gap-[2px]  max-w-[240px]">
               <div className="md:flex md:items-center md:flex-wrap md:gap-[10px] sm:hidden mt-[10px]">
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">0</span> posts
+                  <span className="font-[700]">{ posts}</span> posts
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">1000</span> Followers
+                  <span className="font-[700]">{follower}</span> Followers
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">100</span> Following
+                  <span className="font-[700]">{following}</span> Following
                 </h1>
               </div>
             </div>
@@ -171,13 +177,13 @@ const Profile = () => {
         </section>
         <div className="sm:flex sm:items-center mt-[40px] sm:justify-between md:flex-wrap sm:flex-wrap md:gap-[10px] md:hidden  p-[20px_30px] border-y-[1px] border-y-[gray] dark:border-y-[#fff]">
           <h1 className="text-[17px] dark:text-[#fff]">
-            <span className="font-[700]">0</span> posts
+            <span className="font-[700]">{posts}</span> posts
           </h1>
           <h1 className="text-[17px] dark:text-[#fff]">
-            <span className="font-[700]">1000</span> Followers
+            <span className="font-[700]">{follower}</span> Followers
           </h1>
           <h1 className="text-[17px] dark:text-[#fff]">
-            <span className="font-[700]">100</span> Following
+            <span className="font-[700]">{following}</span> Following
           </h1>
         </div>
         <section className="transition_of_the_page_profile flex justify-between items-center mt-[20px] px-[20px]">
@@ -187,28 +193,9 @@ const Profile = () => {
           <BiUserPin className="dark:text-[#fff] text-[29px]" /> */}
           <TabsProfile />
         </section>
-        <section className="photos mt-[30px] grid grid-cols-3 gap-[5px]">
-          <div>
-            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
-          </div>
-          <div>
-            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
-          </div>
-          <div>
-            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
-          </div>
-          <div>
-            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
-          </div>
-          <div>
-            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
-          </div>
-          <div>
-            <img src={imgForPost} alt="" className="md:w-[360px] md:h-[360px] sm:w-[280px] sm:h-[200px]" />
-          </div>
-        </section>
+
         <div className="footer w-[90%] m-auto mt-[50px]">
-          <ul className="flex  flex-wrap gap-5 justify-center">
+          <ul className="flex  flex-wrap gap-5 justify-center dark:text-[#fff]">
             <li className="text-[13px] font-[400] opacity-80">
               <Link to={``}>Meta</Link>
             </li>
@@ -250,7 +237,7 @@ const Profile = () => {
             </li>
           </ul>
           <div className="flex justify-center my-[10px] py-5">
-            <ul>
+            <ul className="dark:text-[#fff]">
               <li className="text-[13px] font-[400] opacity-80">
                 <Link to={``}>© 2023 Instagram from Meta</Link>
               </li>
