@@ -1,14 +1,64 @@
 import imgLogin from "/src/assets/photo_2023-08-19_13-32-59.jpg";
 import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 
 //For images
 import logoInstaSignIn from "../../assets/LOGO (1).png";
 import logoAppStore from "../../assets/image 4.png";
 import logoGooglePlay from "../../assets/image 5.png";
+import React, { useState } from "react";
+import axios from "axios";
+import { saveToken } from "../../utils/token";
+import { message } from "antd";
+import { axiosRequest } from "../../utils/axiosRequest";
 
 const SignIn = () => {
+
+const [loadings, setLoadings] = useState<boolean[]>([]);
+
+const enterLoading = (index: number) => {
+  setLoadings((prevLoadings) => {
+    const newLoadings = [...prevLoadings];
+    newLoadings[index] = true;
+    return newLoadings;
+  });
+
+  setTimeout(() => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = false;
+      return newLoadings;
+    });
+  }, 1000);
+};
+
+  const [name, setName] = useState<string>("");
+  const [password, setPasword] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>)  {
+    event.preventDefault();
+    const user = {
+      userName: name,
+      password: password,
+    };
+    try {
+      const { data } = await axiosRequest.post("/Account/login", user);
+      if (
+        data.statusCode === 200 &&
+        data.data !== "Your username or password is incorrect!!!"
+      ) {
+        saveToken(data.data);
+        navigate("/home");
+      } else {
+        setTimeout(() => {
+          message.error("Wrong password or login !");
+        }, 1200);
+      }
+    } catch (error) {}
+  };
   return (
     <div>
       <div className="flex justify-evenly items-center p-[20px_0]">
@@ -23,6 +73,9 @@ const SignIn = () => {
             <form
               action=""
               className="flex flex-col justify-center items-center gap-[20px] mt-[20px]"
+              onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+                onSubmit(event)
+              }
             >
               <TextField
                 InputProps={{
@@ -42,6 +95,11 @@ const SignIn = () => {
                 id="outlined-basic"
                 label="Phone, username or email adress"
                 variant="filled"
+                type="text"
+                value={name}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(event.target.value)
+                }
               />
               <TextField
                 id="outlined-basic"
@@ -62,9 +120,16 @@ const SignIn = () => {
                     fontSize: `14px`,
                   },
                 }}
+                value={password}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setPasword(event.target.value)
+                }
               />
 
-              <button type="submit" className="bg-[#307de2] text-[#fff] text-[15px] p-[10px] w-[280px] rounded-[10px]">
+              <button
+                type="submit"
+                className="bg-[#307de2] text-[#fff] text-[15px] p-[10px] w-[280px] rounded-[10px]"
+              >
                 Sign in
               </button>
             </form>
@@ -104,7 +169,7 @@ const SignIn = () => {
         </div>
       </div>
       <div className="footer w-[90%] m-auto mt-[50px]">
-        <ul className="flex  flex-wrap gap-5 justify-center">
+        <ul className="flex  flex-wrap gap-5 justify-center dark:text-[#fff]">
           <li className="text-[13px] font-[400] opacity-80">
             <Link to={``}>Meta</Link>
           </li>
@@ -146,7 +211,7 @@ const SignIn = () => {
           </li>
         </ul>
         <div className="flex justify-center my-[10px] py-5">
-          <ul>
+          <ul className="dark:text-[#fff]">
             <li className="text-[13px] font-[400] opacity-80">
               <Link to={``}>© 2023 Instagram from Meta</Link>
             </li>

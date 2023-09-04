@@ -1,29 +1,40 @@
 import React from "react";
 import imgProfileLogo from "../../assets/My-profile-photo.jpg";
+import myFavPhoto1 from "../../assets/My photos/My_fav_photo_1.jpg"
+import myFavPhoto2 from "../../assets/My photos/My_fav_photo_2.jpg"
+import myFavPhoto3 from "../../assets/My photos/My_fav_photo_3.jpg"
+import myFavPhoto4 from "../../assets/My photos/My_fav_photo_4.jpg"
+import myFavPhoto5 from "../../assets/My photos/My_fav_photo_5.jpg"
+
 import { FiSettings } from "react-icons/fi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import { BiMoviePlay } from "react-icons/bi";
-import { BsBookmark } from "react-icons/bs";
-import { BiUserPin } from "react-icons/bi";
+// import { BsFillGrid3X3GapFill } from "react-icons/bs";
+// import { BiMoviePlay } from "react-icons/bi";
+// import { BsBookmark } from "react-icons/bs";
+// import { BiUserPin } from "react-icons/bi";
 
 //For images
-import imgForPost from "../../assets/My-photo.jpg";
 import { Link } from "react-router-dom";
 import TabsProfile from "../../components/TabsProfile/TabsProfile";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const Profile = () => {
+  // const Link:React.ForwardRefExoticComponent<
+  //   LinkProps & React.RefAttributes<HTMLAnchorElement>
+  // >;
 
-// const Link:React.ForwardRefExoticComponent<
-//   LinkProps & React.RefAttributes<HTMLAnchorElement>
-// >;
-  
+  const dispatch = useAppDispatch()
+
+  const posts = useAppSelector((store)=>store.values.posts)
+  const follower = useAppSelector((store)=>store.values.follower)
+  const following = useAppSelector((store) => store.values.following);
+
   return (
     <div>
       <div className="lg:ml-[330px] md:ml-[120px] pt-[50px] sm:ml-[10px]">
-        <header className="navbar sm:flex sm:justify-between sm:items-center sm:flex-wrap md:hidden px-[40px] text-[20px] fixed top-0 w-full border-b-[1px] border-b-[#cbc8c8] py-[10px] dark:border-b-[#fff] dark:text-[#fff] bg-[#fff] dark:bg-[#000]">
+        <header className="navbar sm:flex sm:justify-between sm:items-center sm:flex-wrap md:hidden px-[40px] text-[20px] fixed top-0 z-20 w-full border-b-[1px] border-b-[#cbc8c8] py-[10px] dark:border-b-[#fff] dark:text-[#fff] bg-[#fff] dark:bg-[#000]">
           <FiSettings />
           <button className="flex items-center gap-[10px] sm:text-[14px] md:text-[18px]">
             olim_yuldoshev_ooo3 <IoMdArrowDropdown />
@@ -36,7 +47,7 @@ const Profile = () => {
               <img
                 src={imgProfileLogo}
                 alt=""
-                className="md:w-[138px] md:h-[138px] sm:w-[52px] sm:h-[52px] rounded-full"
+                className="md:w-[138px] sm:w-[63px] rounded-full"
               />
             </div>
             <div>
@@ -47,7 +58,10 @@ const Profile = () => {
                 <FiSettings className="md:text-[20px] sm:text-[16px] ml-[10px] dark:text-[#fff]" />
               </div>
               <div className="btns flex items-center flex-wrap md:gap-[20px] sm:gap-[4px] mt-[10px] sm:max-w-[300px] md:max-w-[100%]">
-                <Link to={`/home/edit`} className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
+                <Link
+                  to={`/home/edit`}
+                  className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]"
+                >
                   Edit profile
                 </Link>
                 <button className="md:p-[5px_30px] sm:p-[4px_20px] rounded-[10px] bg-[#d0d0d0] md:text-[17px] sm:text-[12px] dark:bg-[gray] dark:text-[#fff] hover:bg-[#bebdbd] dark:hover:bg-[#626262]">
@@ -57,36 +71,29 @@ const Profile = () => {
                   Advertising tool
                 </button>
               </div>
-              <div className="md:flex md:items-center md:flex-wrap md:gap-[10px] sm:hidden mt-[10px]">
+              <div className="md:flex md:items-center md:flex-wrap md:gap-[20px] sm:hidden mt-[10px]">
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">0</span> posts
+                  <span className="font-[700]">{posts}</span> posts
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">1000</span> Followers
+                  <span className="font-[700]">{follower}</span> Followers
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">100</span> Following
+                  <span className="font-[700]">{following}</span> Following
                 </h1>
               </div>
               <div className="mt-[10px] md:flex flex-col md:items-start md:justify-start w-[130px] md:gap-[2px] text-[15px] sm:hidden dark:text-[#fff]">
-                <h3 className="font-[700]">Olim Yuldoshev</h3>
-                <h3>Software daveloper</h3>
-                <h4 className="font-[700]">Student of TNU</h4>
-                <h4 className="font-[700]">Programmer</h4>
-              </div>
-              <div className="md:mt-[10px] md:flex md:flex-col md:gap-[2px] sm:hidden max-w-[240px]">
-                <h3 className="font-[700] dark:text-[#fff]">
-                  Follow{" "}
-                  <Link to={``}><span className="font-[500]">
-                    @coding_with_olim_yuldoshev
-                  </span></Link>
+                <h3 className="text-[14px]">Olim Yuldoshev</h3>
+                <h3 className="text-[14px]">Software daveloper </h3>
+                <h3 className="font-[500] text-[14px]">
+                  Student of TNU <br /> Programmer <br /> Follow
+                  <Link to={``} className="ml-[10px]">
+                    <span className="font-[500]">
+                      @coding_with_olim_yuldoshev
+                    </span>
+                  </Link>
+                  🎂-19.11.2003. <br /> Everything will be, but not immediately.
                 </h3>
-                <h3 className="text-[14px] dark:text-[#fff] font-[400]">
-                  🎂-19.11.2003.
-                </h3>
-                <h4 className="text-[17px] font-[400] dark:text-[#fff]">
-                  Everything will be, but not immediately.
-                </h4>
               </div>
             </div>
           </div>
@@ -94,31 +101,28 @@ const Profile = () => {
         <div className="texts_in_mobile sm:block md:hidden">
           <div>
             <div className="mt-[10px] flex flex-col items-start justify-start w-[130px] gap-[2px] text-[15px] dark:text-[#fff]">
-              <h3 className="font-[700]">Olim Yuldoshev</h3>
-              <h3>Software daveloper</h3>
-              <h4 className="font-[700]">Student of TNU</h4>
-              <h4 className="font-[700]">Programmer</h4>
+              <h3 className="text-[14px]">Olim Yuldoshev</h3>
+              <h3 className="text-[14px]">Software daveloper </h3>
+              <h3 className="font-[500] text-[14px]">
+                Student of TNU <br /> Programmer <br /> Follow
+                <Link to={``}>
+                  <span className="font-[500] ml-[15px]">
+                    @coding_with_olim_yuldoshev
+                  </span>
+                </Link>
+                🎂-19.11.2003. Everything will be, but not immediately.
+              </h3>
             </div>
             <div className="mt-[10px] flex flex-col gap-[2px]  max-w-[240px]">
-              <h3 className="font-[700] flex items-center gap-[10px] flex-wrap dark:text-[#fff]">
-                Follow{" "}
-                <span className="font-[500]">@coding_with_olim_yuldoshev</span>
-              </h3>
-              <h3 className="text-[14px] dark:text-[#fff] font-[400]">
-                🎂-19.11.2003.
-              </h3>
-              <h4 className="text-[17px] font-[400] dark:text-[#fff]">
-                Everything will be, but not immediately.
-              </h4>
               <div className="md:flex md:items-center md:flex-wrap md:gap-[10px] sm:hidden mt-[10px]">
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">0</span> posts
+                  <span className="font-[700]">{ posts}</span> posts
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">1000</span> Followers
+                  <span className="font-[700]">{follower}</span> Followers
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">100</span> Following
+                  <span className="font-[700]">{following}</span> Following
                 </h1>
               </div>
             </div>
@@ -173,13 +177,13 @@ const Profile = () => {
         </section>
         <div className="sm:flex sm:items-center mt-[40px] sm:justify-between md:flex-wrap sm:flex-wrap md:gap-[10px] md:hidden  p-[20px_30px] border-y-[1px] border-y-[gray] dark:border-y-[#fff]">
           <h1 className="text-[17px] dark:text-[#fff]">
-            <span className="font-[700]">0</span> posts
+            <span className="font-[700]">{posts}</span> posts
           </h1>
           <h1 className="text-[17px] dark:text-[#fff]">
-            <span className="font-[700]">1000</span> Followers
+            <span className="font-[700]">{follower}</span> Followers
           </h1>
           <h1 className="text-[17px] dark:text-[#fff]">
-            <span className="font-[700]">100</span> Following
+            <span className="font-[700]">{following}</span> Following
           </h1>
         </div>
         <section className="transition_of_the_page_profile flex justify-between items-center mt-[20px] px-[20px]">
@@ -187,18 +191,11 @@ const Profile = () => {
           <BiMoviePlay className="dark:text-[#fff] text-[29px]" />
           <BsBookmark className="dark:text-[#fff] text-[29px]" />
           <BiUserPin className="dark:text-[#fff] text-[29px]" /> */}
-          <TabsProfile/>
+          <TabsProfile />
         </section>
-        <section className="photos mt-[30px] grid grid-cols-3 gap-[5px]">
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-          <img src={imgForPost} alt="" />
-        </section>
+
         <div className="footer w-[90%] m-auto mt-[50px]">
-          <ul className="flex  flex-wrap gap-5 justify-center">
+          <ul className="flex  flex-wrap gap-5 justify-center dark:text-[#fff]">
             <li className="text-[13px] font-[400] opacity-80">
               <Link to={``}>Meta</Link>
             </li>
@@ -240,7 +237,7 @@ const Profile = () => {
             </li>
           </ul>
           <div className="flex justify-center my-[10px] py-5">
-            <ul>
+            <ul className="dark:text-[#fff]">
               <li className="text-[13px] font-[400] opacity-80">
                 <Link to={``}>© 2023 Instagram from Meta</Link>
               </li>

@@ -209,7 +209,7 @@ const [users, setUsers] = useState<IMessageUser[]>([
 
               <BasicTabs />
             </div>
-            <div className="some_users h-full pb-[110px] mt-[15px] md:mt-0 sm:w-[120px] ">
+            <div className="some_users  pb-[110px] mt-[15px] md:mt-0 sm:w-[120px] ">
               {users.map((user: IMessageUser) => {
                 return (
                   <C_MessageUser

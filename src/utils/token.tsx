@@ -1,8 +1,7 @@
 import jwt_decode from "jwt-decode"
 
-function saveToken(access_token:any, rememberMe:any) {
+function saveToken(access_token:string) {
     localStorage.setItem("access_token", access_token)
-    localStorage.setItem("rememberMe", JSON.stringify(rememberMe))
 }
 
 function getToken() {

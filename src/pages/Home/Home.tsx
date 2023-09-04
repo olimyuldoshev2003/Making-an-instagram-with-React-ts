@@ -1,11 +1,15 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect } from "react";
+import { Box, Modal } from "@mui/material";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 import "./styles.css";
+
+import { useState } from "react";
 
 // import required modules
 import { Pagination } from "swiper/modules";
@@ -25,9 +29,47 @@ import { FiHeart } from "react-icons/fi";
 import { AiOutlineMessage } from "react-icons/ai";
 import { LuSend } from "react-icons/lu";
 import { BsBookmark } from "react-icons/bs";
+import { axiosRequest } from "../../utils/axiosRequest";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  closeModalSettingsOfPost,
+  handleCloseSettingsOfPost,
+  likeActive,
+  openModalSettingsOfPost,
+} from "../../reducers/values";
 
 const Home = () => {
+
+  const like = useAppSelector((store)=>store.values.like)
+
+  const dispatch = useAppDispatch();
+
+  interface IUsers {
+    id: string;
+    dateRegistred: string;
+    userName: number;
+    email: string;
+    userType: number;
+  }
+
   
+  const modalSettingsOfPost = useAppSelector(
+    (store) => store.values.modalSettingsOfPost
+  );
+  
+    const [users, setUsers] = useState<IUsers>([]);
+    
+  async function getUsers() {
+    try {
+      const { data } = await axiosRequest.get(`/User/get-users?PageSize=${25}`);
+      console.log(data.data);
+      setUsers(data.data);
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <div>
@@ -54,8 +96,8 @@ const Home = () => {
             </div>
           </div>
           <div className="main flex justify-between ">
-            <div className="block_1 xl:w-[60%] sm:w-[100%] ">
-              <div className="swiper_home mt-[30px]">
+            <div className="block_1 xl:w-[60%] sm:w-[100%] dark:bg-[#000]">
+              <div className="swiper_home mt-[30px] dark:bg-[#000]">
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={2}
@@ -96,7 +138,7 @@ const Home = () => {
                   className="mySwiper"
                 >
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -108,7 +150,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000]  ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -122,7 +164,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -136,7 +178,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -150,7 +192,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -164,7 +206,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -178,7 +220,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -192,7 +234,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -206,7 +248,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -220,7 +262,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -234,7 +276,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -248,7 +290,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -262,7 +304,7 @@ const Home = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center gap-[5px]">
+                    <div className="flex flex-col justify-center items-center gap-[5px] dark:bg-[#000] ">
                       <div className="border-[#f75757] border-[2px] rounded-full p-[1px]">
                         <img
                           src={imgProfileLogo}
@@ -278,6 +320,7 @@ const Home = () => {
                 </Swiper>
               </div>
               <div className="posts_in_home_page mt-[50px] xl:w-[80%] md:w-[60%] sm:w-[80%] m-[0_auto]">
+                {/* Post 1 */}
                 <div className="post_1">
                   <div className="block_1 flex items-center justify-between">
                     <div className="texts flex items-center">
@@ -304,7 +347,9 @@ const Home = () => {
                       </div>
                     </div>
                     <div>
-                      <button>
+                      <button
+                        onClick={() => dispatch(openModalSettingsOfPost())}
+                      >
                         <BsThreeDots className="text-[21px] font-[400] text-[#8c8c8c] dark:text-[#fff]" />
                       </button>
                     </div>
@@ -315,7 +360,7 @@ const Home = () => {
                   <div className="block_3 mt-[15px]">
                     <div className="func_icons flex justify-between">
                       <div className="icons_1_block flex items-center gap-[14px]">
-                        <button>
+                        <button onClick={() => dispatch(likeActive())}>
                           <FiHeart className="dark:text-[#fff] text-[25px]" />
                         </button>
                         <button>
@@ -333,7 +378,7 @@ const Home = () => {
                     </div>
                     <div className="likes mt-[10px]">
                       <h1 className="text-[14px] dark:text-[#fff]">
-                        <span>150</span> Likes
+                        <span>{like}</span> Likes
                       </h1>
                     </div>
                     <div className="comments mt-[10px]">
@@ -370,7 +415,8 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="post_2 mt-[30px]">
+                {/* Post 2 */}
+                {/* <div className="post_2 mt-[30px]">
                   <div className="block_1 flex items-center justify-between">
                     <div className="texts flex items-center">
                       <Link
@@ -461,7 +507,7 @@ const Home = () => {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="block_2_s_1 w-[30%] sm:hidden xl:flex xl:flex-col xl:gap-[10px] mr-[20px]">
@@ -489,119 +535,35 @@ const Home = () => {
               <div className="child_2_block_2_s_1 flex flex-col gap-[10px]">
                 <div className="text_btn flex justify-between">
                   <h1 className="text-[15px] dark:text-[#fff]">
-                    Recommendations for you
+                    Suggested for you
                   </h1>
                   <button className="dark:text-[#fff] text-[16px]">All</button>
                 </div>
-                <div className="flex justify-between items-center">
-                  <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">
-                    <img
-                      src={imgProfileLogo}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
-                    />
-                  </div>
-                  <div className="ml-[15px]">
-                    <Link
-                      to={`/home/profile`}
-                      className="text-[14px] font-[700] dark:text-[#fff]"
-                    >
-                      olim_yuldoshev_ooo3
-                    </Link>
-                    <h3 className="text-[11px] font-[400] dark:text-[#fff]">
-                      Followed by galibr
-                    </h3>
-                  </div>
-                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]">
-                    <img
-                      src={imgProfileLogo}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
-                    />
-                  </div>
-                  <div className="ml-[15px]">
-                    <Link
-                      to={`/home/profile`}
-                      className="text-[14px] font-[700] dark:text-[#fff]"
-                    >
-                      olim_yuldoshev_ooo3
-                    </Link>
-                    <h3 className="text-[11px] font-[400] dark:text-[#fff]">
-                      Followed by galibr
-                    </h3>
-                  </div>
-                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">
-                    <img
-                      src={imgProfileLogo}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
-                    />
-                  </div>
-                  <div className="ml-[15px]">
-                    <Link
-                      to={`/home/profile`}
-                      className="text-[14px] font-[700] dark:text-[#fff]"
-                    >
-                      olim_yuldoshev_ooo3
-                    </Link>
-                    <h3 className="text-[11px] font-[400] dark:text-[#fff]">
-                      Followed by galibr
-                    </h3>
-                  </div>
-                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">
-                    <img
-                      src={imgProfileLogo}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
-                    />
-                  </div>
-                  <div className="ml-[15px]">
-                    <Link
-                      to={`/home/profile`}
-                      className="text-[14px] font-[700] dark:text-[#fff]"
-                    >
-                      olim_yuldoshev_ooo3
-                    </Link>
-                    <h3 className="text-[11px] font-[400] dark:text-[#fff]">
-                      Followed by galibr
-                    </h3>
-                  </div>
-                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">
-                    <img
-                      src={imgProfileLogo}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
-                    />
-                  </div>
-                  <div className="ml-[15px]">
-                    <Link
-                      to={`/home/profile`}
-                      className="text-[14px] font-[700] dark:text-[#fff]"
-                    >
-                      olim_yuldoshev_ooo3
-                    </Link>
-                    <h3 className="text-[11px] font-[400] dark:text-[#fff]">
-                      Followed by galibr
-                    </h3>
-                  </div>
-                  <button
-                    className="ml-[30px] text-[#26c2e5]"
-                  >
-                    Follow
-                  </button>
-                </div>
+                {/* Recommendations */}
+                {users.map((item:IUsers) => {
+                  return (
+                    <div className="flex justify-between items-center">
+                      <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">
+                        <img
+                          src={imgProfileLogo}
+                          alt=""
+                          className="w-[38px] h-[38px] rounded-full"
+                        />
+                      </div>
+                      <div className="ml-[15px]">
+                        <p className="text-[14px] font-[700] dark:text-[#fff]">
+                          {item.userName}
+                        </p>
+                        <h3 className="text-[11px] font-[400] dark:text-[#fff]">
+                          Followed by galibr
+                        </h3>
+                      </div>
+                      <button className="ml-[30px] text-[#26c2e5]">
+                        Follow
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
               <div className="links flex justify-between items-center flex-wrap text-[12px]  text-[#d4d4d4] mt-[20px] dark:text-[#fff]">
                 <Link to={``}>Information.</Link>
@@ -620,6 +582,40 @@ const Home = () => {
               </div>
             </div>
           </div>
+          <Modal
+            open={modalSettingsOfPost}
+            onClose={() => dispatch(handleCloseSettingsOfPost())}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            className="flex justify-center items-center"
+          >
+            <Box className="  bg-[#fff] outline-none dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff] w-[280px] flex flex-col justify-center rounded-[30px]">
+              <button className="text-[red] py-[10px] border-[1px] rounded-[30px_30px_0_0]">
+                Report
+              </button>
+              <button className="dark:text-[#fff] py-[10px] border-[1px]">
+                Add to favorite
+              </button>
+              <button className="dark:text-[#fff] py-[10px] border-[1px]">
+                Go to post
+              </button>
+              <button className="dark:text-[#fff] py-[10px] border-[1px]">
+                Share
+              </button>
+              <button className="dark:text-[#fff] py-[10px] border-[1px]">
+                Copy link
+              </button>
+              <button className="dark:text-[#fff] py-[10px] border-[1px]">
+                Paste to website
+              </button>
+              <button
+                className="dark:text-[#fff] py-[10px] border-[1px] rounded-[0_0_30px_30px]"
+                onClick={() => dispatch(closeModalSettingsOfPost())}
+              >
+                Cancel
+              </button>
+            </Box>
+          </Modal>
         </section>
       </div>
     </div>

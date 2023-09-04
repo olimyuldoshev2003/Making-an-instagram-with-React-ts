@@ -4,3 +4,96 @@
 
   font-family: "Lily Script One", cursive;
 }
+
+
+.reel__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .reel__back-button {
+    display: flex;
+    align-items: center;
+  }
+  .reel__back-button p {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .icon-tabler-arrow-narrow-left {
+    margin-right: 0.5rem
+  }
+  .reel__content {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .reel__user {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .reel__avatar {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 30px;
+    margin-right: 0.5rem;
+  }
+  .reel__username {
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+  .icon-tabler-message-circle {
+    transform: scaleX(-1);
+  }
+  .reel__options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 225px;
+    align-items: center;
+  }
+  .reel__audio-cover {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border: 1px solid #FFFFFF;
+    border-radius: 7px;
+  }
+  .reel__likes {
+    font-weight: 600;
+    margin-top: -1rem;
+    font-size: 11px;
+  }
+  .reel__caption {
+    margin-bottom: 0.5rem;
+  }
+  .reel__audio {
+    display: flex;
+    align-items: center;
+    margin-left: -0.4rem;
+  }
+  #app {
+    height: 100%;
+  }
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  } */
