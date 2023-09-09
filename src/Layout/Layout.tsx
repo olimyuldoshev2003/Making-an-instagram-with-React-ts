@@ -1,4 +1,3 @@
-
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -19,12 +18,12 @@ import { BsBookmark } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { LuSwitchCamera } from "react-icons/lu";
 
-
 import Switcher from "../components/Switch Ui/Switcher";
 
 //For images
 import imgProfileLogo from "../../src/assets/My-profile-photo.jpg";
 import {
+  IGotTokenState,
   closeLogoutModal,
   handleClose,
   handleCloseLogoutModal,
@@ -32,6 +31,8 @@ import {
   openAddModal,
   openLogoutModal,
   openModalMore,
+  setDataUserName,
+  setDataUsername,
   setSearch,
 } from "../reducers/values";
 import { useDispatch } from "react-redux";
@@ -63,19 +64,31 @@ const Layout = () => {
   const modalMore = useAppSelector((store) => store.values.modalMore);
   const modalLogout = useAppSelector((store) => store.values.modalLogout);
   const search = useAppSelector((store) => store.values.search);
-  const userNameProfile = useAppSelector((store) => store.values.userNameProfile);
+  // const userNameProfile = useAppSelector((store) => store.values.userNameProfile);
+  const gotToken = useAppSelector((store) => store.values.gotToken);
+  // const [dataUserName, setDataUserName] = useState<IGotTokenState>({});
+  
+  const dataUserName = useAppSelector((store) => store.values.dataUserName);
+  console.log(dataUserName);
+  
+
   const [state, setState] = React.useState({
     left: false,
   });
 
-  // async function getUserName() {
-  //   try {
-  //     const {data} = await axiosRequest.get()
-  //   }
-  //   catch(error) {
+  async function getUserNameImage() {
+    try {
+      const { data } = await axiosRequest.get(
+        `UserProfile/get-UserProfile-by-id?id=${gotToken.sid}`
+      );
+      dispatch(setDataUserName(data.data));
+      console.log(data.data);
+    } catch (error) {}
+  }
 
-  //   }
-  // }
+  useEffect(() => {
+    getUserNameImage();
+  }, []);
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -154,22 +167,22 @@ const Layout = () => {
 
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    interface IUsers {
-      id: string;
-      dateRegistred: string;
-      userName: number;
-      email: string;
-      userType: number;
-    }
+  interface IUsers {
+    id: string;
+    dateRegistred: string;
+    userName: number;
+    email: string;
+    userType: number;
+  }
 
-      const [users, setUsers] = useState([]);
-    
+  const [users, setUsers] = useState([]);
+
   async function getUsers() {
     try {
       const { data } = await axiosRequest.get(
         `/User/get-users/?PageSize=${25}`
       );
-     setUsers(data.data);
+      setUsers(data.data);
     } catch (error) {}
   }
 
@@ -269,21 +282,23 @@ const Layout = () => {
                 <CgAddR className="text-[30px]" />
                 <span className="sm:hidden lg:block text-[18px]">Create</span>
               </button>
-              <li>
-                <Link
-                  to={`/home/profile`}
-                  className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] hover:bg-[#f0eeee] dark:hover:bg-[gray] p-[10px_0px] hover:rounded-[20px] sm:w-[40px]"
-                >
-                  <img
-                    src={imgProfileLogo}
-                    alt=""
-                    className="w-[38px] h-[38px] rounded-full"
-                  />
-                  <span className="sm:hidden lg:block text-[18px]">
-                    Profile
-                  </span>
-                </Link>
-              </li>
+              {
+                <li>
+                  <Link
+                    to={`/home/profile`}
+                    className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] hover:bg-[#f0eeee] dark:hover:bg-[gray] p-[10px_0px] hover:rounded-[20px] sm:w-[40px]"
+                  >
+                    <img
+                      src={imgProfileLogo}
+                      alt=""
+                      className="w-[38px] h-[38px] rounded-full"
+                    />
+                    <span className="sm:hidden lg:block text-[18px]">
+                      Profile
+                    </span>
+                  </Link>
+                </li>
+              }
             </ul>
             <div className="mt-[40px]">
               <button
@@ -322,20 +337,19 @@ const Layout = () => {
             </li>
             <li>
               <Link to={`/home/messages`}>
-                <PiMessengerLogoBold
-                  className="text-[30px]"
-                />
+                <PiMessengerLogoBold className="text-[30px]" />
               </Link>
             </li>
-            <li>
-              <Link to={`/home/profile`} className="lg:w-[150px] md:w-[30px]">
-                <img
-                  src={imgProfileLogo}
-                  alt=""
-                  className="w-[38px] h-[38px] rounded-full"
-                />
-              </Link>
-            </li>
+              <li>
+                <Link to={`/home/profile`} className="lg:w-[150px] md:w-[30px]">
+                  <img
+                    src={imgProfileLogo}
+                    alt=""
+                    className="w-[38px] h-[38px] rounded-full"
+                  />
+                </Link>
+              </li>
+
           </ul>
         </footer>
       </div>

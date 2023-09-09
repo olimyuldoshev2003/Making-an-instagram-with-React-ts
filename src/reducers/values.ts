@@ -3,7 +3,7 @@ import { RootState } from "../store/store";
 
 // Define a type for the slice state
 
-interface gotTokenState {
+export interface IGotTokenState {
   sid: string;
   name: string;
   email: string;
@@ -12,6 +12,18 @@ interface gotTokenState {
   iss: string;
   aud: string;
 }
+
+export interface IDataUserNameState{
+    image: string;
+    dateUpdated: string;
+    gender: string;
+    firstName: string;
+  lastName: string;
+  locationId: number;
+  dob: string;
+    occupation: string;
+    about: string;
+  };
 
 
 interface CounterState {
@@ -29,9 +41,21 @@ interface CounterState {
   posts: number;
   search: string;
   userNameProfile: string;
-  gotToken: gotTokenState;
+  gotToken: IGotTokenStgoate;
+  dataUserName: IDataUserNameState;
 }
 
+// data: {
+//   image: "625f2adb-df23-4aca-a8c9-991413005558.JPG",
+//   dateUpdated: "2023-09-09T07:08:37.0817994Z",
+//   gender: "Male",
+//   firstName: "Olim",
+//   lastName: "Karomatov",
+//   locationId: 1,
+//   dob: "2003-09-08T14:51:46.65721Z",
+//   occupation: "Developer",
+//   about: "Hello",
+// },
 // Define the initial state using that type
 const initialState: CounterState = {
   modalCreate: false,
@@ -39,7 +63,7 @@ const initialState: CounterState = {
   modalSettingsOfPost: false,
   modalLogout: false,
   modalViewPosts: false,
-  modalStory:false,
+  modalStory: false,
   like: 0,
   comment: 0,
   follow: 0,
@@ -52,11 +76,23 @@ const initialState: CounterState = {
     sid: "",
     name: "",
     email: "",
-    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role":"",
-      exp: "",
+    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "",
+    exp: "",
     iss: "",
-    aud:""
+    aud: "",
   },
+  dataUserName: {
+    image:"",
+    dateUpdated: "",
+    gender: "",
+    firstName: "",
+    lastName: "",
+    locationId: 0,
+    dob: "",
+    occupation: "",
+    about:""
+  },
+
 };
 
 export const counterSlice = createSlice({
@@ -104,14 +140,20 @@ export const counterSlice = createSlice({
       state.modalViewPosts = false;
     },
     likeActive(state: CounterState) {
-        state.like += 1;
+      state.like += 1;
     },
     likeInactive(state: CounterState) {
-        state.like += 1;
+      state.like += 1;
     },
-    setGotToken(state: CounterState, action: PayloadAction<gotTokenState>) {
-     state.gotToken = action.payload 
-    }
+    setGotToken(state: CounterState, action: PayloadAction<IGotTokenState>) {
+      state.gotToken = action.payload;
+    },
+    setDataUserName(
+      state: CounterState,
+      action: PayloadAction<IDataUserNameState>
+    ) {
+      state.dataUserName = action.payload;
+    },
   },
 });
 
@@ -134,7 +176,8 @@ export const {
   handleCloseViewMyPostsOfProfileModal,
   likeActive,
   likeInactive,
-  setGotToken
+  setGotToken,
+  setDataUserName,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiLockAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosRequest } from "../../utils/axiosRequest";
@@ -19,6 +19,10 @@ const ForgetPassword = () => {
       navigate("/reset-password");
     } catch (error) {}
   }
+
+  // useEffect(()=> {
+  //   forgotPasswordDelete()
+  // }, [])
 
   return (
     <div>

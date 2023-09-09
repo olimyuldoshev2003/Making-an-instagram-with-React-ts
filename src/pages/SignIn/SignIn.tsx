@@ -59,11 +59,8 @@ const enterLoading = (index: number) => {
         // console.log(data.data)
 
         // const object = JSON.parse(atob(token.split(".")[1]));
-        const object = JSON.parse(atob(data.data.split(".")[1]));
-        console.log(object);
-
-        dispatch(setGotToken(object));
-
+        dispatch(setGotToken(JSON.parse(atob(data.data.split(".")[1]))));
+        
         navigate("/home");
       } else {
         setTimeout(() => {
