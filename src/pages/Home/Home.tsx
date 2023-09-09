@@ -42,8 +42,8 @@ const Home = () => {
 
   const like = useAppSelector((store)=>store.values.like)
   const gotToken = useAppSelector((store) => store.values.gotToken)
+  console.log(gotToken);
   
-
   const dispatch = useAppDispatch();
 
   interface IUsers {
