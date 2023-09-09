@@ -63,9 +63,19 @@ const Layout = () => {
   const modalMore = useAppSelector((store) => store.values.modalMore);
   const modalLogout = useAppSelector((store) => store.values.modalLogout);
   const search = useAppSelector((store) => store.values.search);
+  const userNameProfile = useAppSelector((store) => store.values.userNameProfile);
   const [state, setState] = React.useState({
     left: false,
   });
+
+  // async function getUserName() {
+  //   try {
+  //     const {data} = await axiosRequest.get()
+  //   }
+  //   catch(error) {
+
+  //   }
+  // }
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>

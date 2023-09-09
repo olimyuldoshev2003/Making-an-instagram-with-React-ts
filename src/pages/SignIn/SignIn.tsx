@@ -12,10 +12,12 @@ import axios from "axios";
 import { saveToken } from "../../utils/token";
 import { message } from "antd";
 import { axiosRequest } from "../../utils/axiosRequest";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setGotToken } from "../../reducers/values";
 
 const SignIn = () => {
 
-const [loadings, setLoadings] = useState<boolean[]>([]);
+  const [loadings, setLoadings] = useState<boolean[]>([]);
 
 const enterLoading = (index: number) => {
   setLoadings((prevLoadings) => {
@@ -32,6 +34,8 @@ const enterLoading = (index: number) => {
     });
   }, 1000);
 };
+
+  const dispatch = useAppDispatch()
 
   const [name, setName] = useState<string>("");
   const [password, setPasword] = useState<string>("");
@@ -50,7 +54,16 @@ const enterLoading = (index: number) => {
         data.statusCode === 200 &&
         data.data !== "Your username or password is incorrect!!!"
       ) {
+
         saveToken(data.data);
+        // console.log(data.data)
+
+        // const object = JSON.parse(atob(token.split(".")[1]));
+        const object = JSON.parse(atob(data.data.split(".")[1]));
+        console.log(object);
+
+        dispatch(setGotToken(object));
+
         navigate("/home");
       } else {
         setTimeout(() => {
@@ -142,7 +155,7 @@ const enterLoading = (index: number) => {
               <Link to={""} className="text-[17px] text-[#2356a1] font-[700]">
                 Login with Facebook
               </Link>
-              <Link to={``} className="text-[13px]">
+              <Link to={`/forget-password`} className="text-[13px]">
                 Forgot your password
               </Link>
             </div>

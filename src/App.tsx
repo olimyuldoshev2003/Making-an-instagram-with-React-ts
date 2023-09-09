@@ -12,6 +12,9 @@ import Edit from './pages/Edit/Edit';
 
 import ProtectedRoute from "./utils/ProtectedRoute";
 import AuthCheck from "./utils/AuthCheck";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 
 
 const App = () => {
@@ -29,6 +32,19 @@ const App = () => {
     {
       path: "signup",
       element: <SignUp />,
+    },
+    //Forget Password
+    {
+      path: "forget-password",
+      element:<ForgetPassword/>
+    },
+    {
+      path: "reset-password",
+      element:<ResetPassword/>
+    },
+    {
+      path: "change-password",
+      element:<ChangePassword/>
     },
     //Home
     {
