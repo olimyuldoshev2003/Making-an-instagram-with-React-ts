@@ -39,12 +39,19 @@ import {
 } from "../../reducers/values";
 
 const Home = () => {
-
-  const like = useAppSelector((store)=>store.values.like)
-  const gotToken = useAppSelector((store) => store.values.gotToken)
-  console.log(gotToken);
-  
+  const like = useAppSelector((store) => store.values.like);
   const dispatch = useAppDispatch();
+
+  const posts = useAppSelector((store) => store.values.posts);
+  console.log(posts);
+  
+  const dataUserName = useAppSelector((store) => store.values.dataUserName);
+
+
+  const token = JSON.parse(
+    atob(localStorage.getItem("access_token").split(".")[1])
+  );
+
 
   interface IUsers {
     id: string;
@@ -54,14 +61,12 @@ const Home = () => {
     userType: number;
   }
 
-
-  
   const modalSettingsOfPost = useAppSelector(
     (store) => store.values.modalSettingsOfPost
   );
-  
-    const [users, setUsers] = useState<IUsers>([]);
-    
+
+  const [users, setUsers] = useState<IUsers>([]);
+
   async function getUsers() {
     try {
       const { data } = await axiosRequest.get(`/User/get-users?PageSize=${25}`);
@@ -323,101 +328,145 @@ const Home = () => {
                 </Swiper>
               </div>
               <div className="posts_in_home_page mt-[50px] xl:w-[80%] md:w-[60%] sm:w-[80%] m-[0_auto]">
-                {/* Post 1 */}
-                <div className="post_1">
-                  <div className="block_1 flex items-center justify-between">
-                    <div className="texts flex items-center">
-                      <Link
-                        to={`/home/profile`}
-                        className="border-[#f75757] border-[2px] rounded-full p-[1px]"
-                      >
+                {posts.map((item) => {
+                  // console.log("item");
+                  // console.log(item);
+                  
+                  const [users, setUsers] = useState({})
+                  const [nickname, setNickname] = useState({})
+                  
+
+                  async function getUsersInsidePosts() {
+                    try {
+                      const { data } = await axiosRequest.get(
+                        `UserProfile/get-UserProfile-by-id?id=${item.userId}`
+                      );
+
+                      setUsers(data.data)
+                      
+
+                    } catch(error) {}
+                  }
+
+                  async function getNicknameInsidePosts() {
+                    try {
+                      const { data } = await axiosRequest.get(
+                        `User/get-User-by-id?userId=${item.userId}`
+                      );                        
+                      
+                      setNickname(data.data)
+                      
+                    } catch(error) {}
+                  }
+                  
+                  
+
+                  useEffect(() => {
+                    getUsersInsidePosts();
+                    getNicknameInsidePosts();
+                  }, [])
+                  
+                  return (
+                    <div className="posts mt-[30px]">
+                      <div className="block_1 flex items-center justify-between">
+                        <div className="texts flex items-center">
+                          <img
+                            src={`${import.meta.env.VITE_API_URL}images/${
+                              // item.images
+                              users.image
+                            }`}
+                            alt=""
+                            className="w-[28px] h-[28px] rounded-full"
+                          />
+
+                          <div className="ml-[15px] flex items-center gap-[10px] flex-wrap">
+                            <h3 className="text-[14px] font-[700] dark:text-[#fff]">
+                              {nickname.userName}
+                            </h3>
+                            <h3 className="text-[13px] font-[400] dark:text-[#fff]">
+                              <span className="mr-[5px]">1</span>min. ago
+                            </h3>
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                            onClick={() => dispatch(openModalSettingsOfPost())}
+                          >
+                            <BsThreeDots className="text-[21px] font-[400] text-[#8c8c8c] dark:text-[#fff]" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="block_2 mt-[10px] bg-[#cecece]">
                         <img
-                          src={imgProfileLogo}
+                          src={`${import.meta.env.VITE_API_URL}images/${
+                            item.images
+                          }`}
                           alt=""
-                          className="w-[28px] h-[28px] rounded-full"
                         />
-                      </Link>
-                      <div className="ml-[15px] flex items-center gap-[10px] flex-wrap">
-                        <Link
-                          to={`/home/profile`}
-                          className="text-[14px] font-[700] dark:text-[#fff]"
-                        >
-                          olim_yuldoshev_ooo3
-                        </Link>
-                        <h3 className="text-[13px] font-[400] dark:text-[#fff]">
-                          <span className="mr-[5px]">1</span>min. ago
-                        </h3>
+                      </div>
+                      <div className="block_3 mt-[15px]">
+                        <div className="func_icons flex justify-between">
+                          <div className="icons_1_block flex items-center gap-[14px]">
+                            <button onClick={() => dispatch(likeActive())}>
+                              <FiHeart className="dark:text-[#fff] text-[25px]" />
+                            </button>
+                            <button>
+                              <AiOutlineMessage className="dark:text-[#fff] text-[25px]" />
+                            </button>
+                            <button>
+                              <LuSend className="dark:text-[#fff] text-[25px]" />
+                            </button>
+                          </div>
+                          <div className="icon_save">
+                            <button>
+                              <BsBookmark className="dark:text-[#fff] text-[25px]" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="likes mt-[10px]">
+                          <h1 className="text-[14px] dark:text-[#fff]">
+                            <span>{like}</span> Likes
+                          </h1>
+                        </div>
+                        <div className="comments mt-[10px]">
+                          <h1 className="text-[14px] font-[700] dark:text-[#fff]">
+                            <Link to={`/home/profile`}>
+                              olim_yuldoshev_ooo3{" "}
+                            </Link>
+                            <span className="ml-[5px] font-[400]">
+                              If you wanna be what you want, just work hard and
+                              never give up
+                              <br />
+                              <br />
+                              👉Follow for more👈
+                              <br /> Like please❤️
+                              <br /> Commentary don't forget✍️
+                              <br />
+                              <br /> #follow4follow #love #funny #memes
+                              #followme #cute #fun #music #viral #follower
+                              #followｍe #following #likeme #liketime
+                              #like4likes #likeforlikes #liking #likesforlike
+                              #like4follow #likesforfollow #liker #likers
+                              #liking #like4likes #follow4followback
+                              #followalways #followbackalways #followfriday
+                              #followlikes #followus
+                              #school_number_3_hisor_castle #olim_yuldoshev
+                            </span>
+                          </h1>
+                        </div>
+                        <div className="input_and_btn_for_comment mt-[10px]">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            className="w-[100%] outline-none border-b-[1px] border-b-[#000] dark:bg-[#000] dark:border-b-[#fff] dark:text-[#fff] text-[16px] dark:placeholder:text-[#fff] px-[20px] pb-[20px]"
+                            placeholder="Add a comment"
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <button
-                        onClick={() => dispatch(openModalSettingsOfPost())}
-                      >
-                        <BsThreeDots className="text-[21px] font-[400] text-[#8c8c8c] dark:text-[#fff]" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="block_2 mt-[10px] bg-[#cecece]">
-                    <img src={imgForPost} alt="" />
-                  </div>
-                  <div className="block_3 mt-[15px]">
-                    <div className="func_icons flex justify-between">
-                      <div className="icons_1_block flex items-center gap-[14px]">
-                        <button onClick={() => dispatch(likeActive())}>
-                          <FiHeart className="dark:text-[#fff] text-[25px]" />
-                        </button>
-                        <button>
-                          <AiOutlineMessage className="dark:text-[#fff] text-[25px]" />
-                        </button>
-                        <button>
-                          <LuSend className="dark:text-[#fff] text-[25px]" />
-                        </button>
-                      </div>
-                      <div className="icon_save">
-                        <button>
-                          <BsBookmark className="dark:text-[#fff] text-[25px]" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="likes mt-[10px]">
-                      <h1 className="text-[14px] dark:text-[#fff]">
-                        <span>{like}</span> Likes
-                      </h1>
-                    </div>
-                    <div className="comments mt-[10px]">
-                      <h1 className="text-[14px] font-[700] dark:text-[#fff]">
-                        <Link to={`/home/profile`}>olim_yuldoshev_ooo3 </Link>
-                        <span className="ml-[5px] font-[400]">
-                          If you wanna be what you want, just work hard and
-                          never give up
-                          <br />
-                          <br />
-                          👉Follow for more👈
-                          <br /> Like please❤️
-                          <br /> Commentary don't forget✍️
-                          <br />
-                          <br /> #follow4follow #love #funny #memes #followme
-                          #cute #fun #music #viral #follower #followｍe
-                          #following #likeme #liketime #like4likes #likeforlikes
-                          #liking #likesforlike #like4follow #likesforfollow
-                          #liker #likers #liking #like4likes #follow4followback
-                          #followalways #followbackalways #followfriday
-                          #followlikes #followus #school_number_3_hisor_castle
-                          #olim_yuldoshev
-                        </span>
-                      </h1>
-                    </div>
-                    <div className="input_and_btn_for_comment mt-[10px]">
-                      <input
-                        type="text"
-                        name=""
-                        id=""
-                        className="w-[100%] outline-none border-b-[1px] border-b-[#000] dark:bg-[#000] dark:border-b-[#fff] dark:text-[#fff] text-[16px] dark:placeholder:text-[#fff] px-[20px] pb-[20px]"
-                        placeholder="Add a comment"
-                      />
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
                 {/* Post 2 */}
                 {/* <div className="post_2 mt-[30px]">
                   <div className="block_1 flex items-center justify-between">
@@ -543,7 +592,7 @@ const Home = () => {
                   <button className="dark:text-[#fff] text-[16px]">All</button>
                 </div>
                 {/* Recommendations */}
-                {users.map((item:IUsers) => {
+                {users.map((item: IUsers) => {
                   return (
                     <div className="flex justify-between items-center">
                       <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">

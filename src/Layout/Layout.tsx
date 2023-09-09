@@ -32,9 +32,8 @@ import {
   openLogoutModal,
   openModalMore,
   setDataUserName,
-  setDataUsername,
   setSearch,
-} from "../reducers/values";
+  } from "../reducers/values";
 import { useDispatch } from "react-redux";
 import { Box, Modal } from "@mui/material";
 
@@ -64,27 +63,30 @@ const Layout = () => {
   const modalMore = useAppSelector((store) => store.values.modalMore);
   const modalLogout = useAppSelector((store) => store.values.modalLogout);
   const search = useAppSelector((store) => store.values.search);
-  // const userNameProfile = useAppSelector((store) => store.values.userNameProfile);
-  const gotToken = useAppSelector((store) => store.values.gotToken);
-  // const [dataUserName, setDataUserName] = useState<IGotTokenState>({});
   
   const dataUserName = useAppSelector((store) => store.values.dataUserName);
-  console.log(dataUserName);
   
-
+  
   const [state, setState] = React.useState({
     left: false,
   });
+  
+  const token = JSON.parse(
+    atob((localStorage.getItem("access_token")).split(".")[1])
+  );
+
 
   async function getUserNameImage() {
     try {
       const { data } = await axiosRequest.get(
-        `UserProfile/get-UserProfile-by-id?id=${gotToken.sid}`
+        `UserProfile/get-UserProfile-by-id?id=${token.sid}`
       );
       dispatch(setDataUserName(data.data));
-      console.log(data.data);
     } catch (error) {}
   }
+
+
+  
 
   useEffect(() => {
     getUserNameImage();
@@ -289,7 +291,9 @@ const Layout = () => {
                     className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] hover:bg-[#f0eeee] dark:hover:bg-[gray] p-[10px_0px] hover:rounded-[20px] sm:w-[40px]"
                   >
                     <img
-                      src={imgProfileLogo}
+                      src={`${import.meta.env.VITE_API_URL}images/${
+                        dataUserName.image
+                      }`}
                       alt=""
                       className="w-[38px] h-[38px] rounded-full"
                     />
@@ -340,16 +344,15 @@ const Layout = () => {
                 <PiMessengerLogoBold className="text-[30px]" />
               </Link>
             </li>
-              <li>
-                <Link to={`/home/profile`} className="lg:w-[150px] md:w-[30px]">
-                  <img
-                    src={imgProfileLogo}
-                    alt=""
-                    className="w-[38px] h-[38px] rounded-full"
-                  />
-                </Link>
-              </li>
-
+            <li>
+              <Link to={`/home/profile`} className="lg:w-[150px] md:w-[30px]">
+                <img
+                  src={imgProfileLogo}
+                  alt=""
+                  className="w-[38px] h-[38px] rounded-full"
+                />
+              </Link>
+            </li>
           </ul>
         </footer>
       </div>
