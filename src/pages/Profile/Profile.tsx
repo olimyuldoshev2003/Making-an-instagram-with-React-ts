@@ -10,15 +10,19 @@ import { FiSettings } from "react-icons/fi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
+import { GrLogout } from "react-icons/gr";
 // import { BsFillGrid3X3GapFill } from "react-icons/bs";
 // import { BiMoviePlay } from "react-icons/bi";
 // import { BsBookmark } from "react-icons/bs";
 // import { BiUserPin } from "react-icons/bi";
+import { Box, Modal } from "@mui/material";
 
 //For images
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TabsProfile from "../../components/TabsProfile/TabsProfile";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { closeLogoutModal, handleCloseLogoutModal, openLogoutModal } from "../../reducers/values";
+import { saveToken } from "../../utils/token";
 
 const Profile = () => {
   // const Link:React.ForwardRefExoticComponent<
@@ -26,10 +30,12 @@ const Profile = () => {
   // >;
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const posts = useAppSelector((store)=>store.values.posts)
   const follower = useAppSelector((store)=>store.values.follower)
   const following = useAppSelector((store) => store.values.following);
+  const modalLogout = useAppSelector((store) => store.values.modalLogout);
 
   return (
     <div>
@@ -39,7 +45,7 @@ const Profile = () => {
           <button className="flex items-center gap-[10px] sm:text-[14px] md:text-[18px]">
             olim_yuldoshev_ooo3 <IoMdArrowDropdown />
           </button>
-          <FiUserPlus />
+          <GrLogout onClick={()=>dispatch(openLogoutModal())} />
         </header>
         <section className="photo_profile_and_all_texts_and_btns mt-[20px]">
           <div className="img_profile flex  md:gap-[50px] sm:gap-[10px] items-center ">
@@ -116,7 +122,7 @@ const Profile = () => {
             <div className="mt-[10px] flex flex-col gap-[2px]  max-w-[240px]">
               <div className="md:flex md:items-center md:flex-wrap md:gap-[10px] sm:hidden mt-[10px]">
                 <h1 className="text-[20px] dark:text-[#fff]">
-                  <span className="font-[700]">{ posts}</span> posts
+                  <span className="font-[700]">{posts}</span> posts
                 </h1>
                 <h1 className="text-[20px] dark:text-[#fff]">
                   <span className="font-[700]">{follower}</span> Followers
@@ -245,6 +251,39 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Modal
+        open={modalLogout}
+        onClose={() => dispatch(handleCloseLogoutModal())}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="flex justify-center items-center"
+      >
+        <Box className="w-[300px] py-[30px] bg-[#fff] flex items-center justify-center flex-col rounded-[10px] border-none outline-none dark:bg-[#000]">
+          <h1 className="mb-[30px] text-center text-[23px] font-[800] dark:text-[#fff]">
+            Are you sure to Logout?
+          </h1>
+          <div className="flex items-center gap-[20px]">
+            <button
+              className="p-[8px_40px] bg-[green] text-[#fff] outline-none rounded-[30px]"
+              onClick={() => {
+                saveToken("");
+                navigate("/");
+                dispatch(closeLogoutModal());
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="p-[8px_40px] bg-[red] text-[#fff] outline-none rounded-[30px]"
+              onClick={() => {
+                dispatch(closeLogoutModal());
+              }}
+            >
+              No
+            </button>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 };

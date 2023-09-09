@@ -1,10 +1,14 @@
 import jwt_decode from "jwt-decode"
+import { setGotToken } from "../reducers/values";
 
 function saveToken(access_token:string) {
     localStorage.setItem("access_token", access_token)
 }
 
 function getToken() {
+
+
+
     let token:string|null = localStorage.getItem("access_token");
     try {
         if (typeof token === "string") {
@@ -14,6 +18,8 @@ function getToken() {
         console.log(error);
         
     }
+    
+
 }
 
 function destroyToken() {

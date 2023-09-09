@@ -114,7 +114,7 @@ const [users, setUsers] = useState<IMessageUser[]>([
   },
   {
     id: 6,
-    img: f,
+    img: f, 
     name: "Bill Gates",
     status: "Online",
     online: true,

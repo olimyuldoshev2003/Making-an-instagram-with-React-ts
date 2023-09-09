@@ -2,12 +2,25 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 
 // Define a type for the slice state
+
+interface gotTokenState {
+  sid: string;
+  name: string;
+  email: string;
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  exp:string;
+  iss: string;
+  aud: string;
+}
+
+
 interface CounterState {
   modalCreate: boolean;
   modalMore: boolean;
   modalSettingsOfPost: boolean;
   modalLogout: boolean;
   modalViewPosts: boolean;
+  modalStory: boolean;
   like: number;
   comment: number;
   follow: number;
@@ -15,6 +28,8 @@ interface CounterState {
   following: number;
   posts: number;
   search: string;
+  userNameProfile: string;
+  gotToken: gotTokenState;
 }
 
 // Define the initial state using that type
@@ -22,15 +37,26 @@ const initialState: CounterState = {
   modalCreate: false,
   modalMore: false,
   modalSettingsOfPost: false,
-  modalLogout:false,
+  modalLogout: false,
   modalViewPosts: false,
+  modalStory:false,
   like: 0,
   comment: 0,
   follow: 0,
   follower: 0,
   following: 0,
   posts: 0,
-  search:"",
+  search: "",
+  userNameProfile: "",
+  gotToken: {
+    sid: "",
+    name: "",
+    email: "",
+    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role":"",
+      exp: "",
+    iss: "",
+    aud:""
+  },
 };
 
 export const counterSlice = createSlice({
@@ -82,6 +108,9 @@ export const counterSlice = createSlice({
     },
     likeInactive(state: CounterState) {
         state.like += 1;
+    },
+    setGotToken(state: CounterState, action: PayloadAction<gotTokenState>) {
+     state.gotToken = action.payload 
     }
   },
 });
@@ -97,13 +126,15 @@ export const {
   handleCloseSettingsOfPost,
   closeModalSettingsOfPost,
   openLogoutModal,
+  // setModalStory,
   handleCloseLogoutModal,
   closeLogoutModal,
   setSearch,
   openModalViewPostMine,
   handleCloseViewMyPostsOfProfileModal,
   likeActive,
-  likeInactive
+  likeInactive,
+  setGotToken
 } = counterSlice.actions;
 
 export default counterSlice.reducer;
