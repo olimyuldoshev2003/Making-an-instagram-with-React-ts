@@ -11,7 +11,10 @@ import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { Modal } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleCloseViewMyPostsOfProfileModal, openModalViewPostMine } from "../../reducers/values";
+import {
+  handleCloseViewMyPostsOfProfileModal,
+  openModalViewPostMine,
+} from "../../reducers/values";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -53,9 +56,14 @@ export default function TabsProfile() {
     setValue(newValue);
   };
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const modalViewPosts = useAppSelector((store) => store.values.modalViewPosts);
+  const posts = useAppSelector((store) => store.values.posts);
+
+  const token = JSON.parse(
+    atob(localStorage.getItem("access_token").split(".")[1])
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -117,62 +125,71 @@ export default function TabsProfile() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <div className="grid grid-cols-3 gap-[3px]">
-          <div className="relative">
-            <img src={imgForPost} className="object-cover w-full h-full" />
-            <div
-              className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
-              onClick={() => dispatch(openModalViewPostMine())}
-            >
-              <div className="flex flex-col gap-[4px] items-center">
-                <div className="text-white flex gap-[4px]">
-                  <AiFillHeart className="text-[24px]" />
-                  <p className="font-[800]">104</p>
+        {
+          <div className="grid grid-cols-3 gap-[3px]">
+            {posts.map((item) => {
+              return (
+                <div className="relative">
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}images/${item.images}`}
+                    className="object-cover w-full h-full"
+                  />
+                  <div
+                    className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
+                    onClick={() => dispatch(openModalViewPostMine())}
+                  >
+                    <div className="flex flex-col gap-[4px] items-center">
+                      <div className="text-white flex gap-[4px]">
+                        <AiFillHeart className="text-[24px]" />
+                        <p className="font-[800]">104</p>
+                      </div>
+                      <div className="text-white flex gap-[4px]">
+                        <FaComment className="text-[20px]" />
+                        <p className="font-[800]">5</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-white flex gap-[4px]">
-                  <FaComment className="text-[20px]" />
-                  <p className="font-[800]">5</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="relative">
-            <img src={imgForPost} className="object-cover w-full h-full" />
-            <div
-              className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
-              onClick={() => dispatch(openModalViewPostMine())}
-            >
-              <div className="flex flex-col gap-[4px] items-center">
-                <div className="text-white flex gap-[4px]">
-                  <AiFillHeart className="text-[24px]" />
-                  <p className="font-[800]">117</p>
-                </div>
-                <div className="text-white flex gap-[4px]">
-                  <FaComment className="text-[20px]" />
-                  <p className="font-[800]">14</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="relative">
-            <img src={imgForPost} className="object-cover w-full h-full" />
-            <div
-              className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
-              onClick={() => dispatch(openModalViewPostMine())}
-            >
-              <div className="flex flex-col gap-[4px] items-center">
-                <div className="text-white flex gap-[4px]">
-                  <AiFillHeart className="text-[24px]" />
-                  <p className="font-[800]">150</p>
-                </div>
-                <div className="text-white flex gap-[4px]">
-                  <FaComment className="text-[20px]" />
-                  <p className="font-[800]">10</p>
+              );
+            })}
+            {/* <div className="relative">
+              <img src={imgForPost} className="object-cover w-full h-full" />
+              <div
+                className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
+                onClick={() => dispatch(openModalViewPostMine())}
+              >
+                <div className="flex flex-col gap-[4px] items-center">
+                  <div className="text-white flex gap-[4px]">
+                    <AiFillHeart className="text-[24px]" />
+                    <p className="font-[800]">117</p>
+                  </div>
+                  <div className="text-white flex gap-[4px]">
+                    <FaComment className="text-[20px]" />
+                    <p className="font-[800]">14</p>
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="relative">
+              <img src={imgForPost} className="object-cover w-full h-full" />
+              <div
+                className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
+                onClick={() => dispatch(openModalViewPostMine())}
+              >
+                <div className="flex flex-col gap-[4px] items-center">
+                  <div className="text-white flex gap-[4px]">
+                    <AiFillHeart className="text-[24px]" />
+                    <p className="font-[800]">150</p>
+                  </div>
+                  <div className="text-white flex gap-[4px]">
+                    <FaComment className="text-[20px]" />
+                    <p className="font-[800]">10</p>
+                  </div>
+                </div>
+              </div>
+            </div> */}
           </div>
-        </div>
+        }
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two

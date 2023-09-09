@@ -8,23 +8,35 @@ export interface IGotTokenState {
   name: string;
   email: string;
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
-  exp:string;
+  exp: string;
   iss: string;
   aud: string;
 }
 
-export interface IDataUserNameState{
-    image: string;
-    dateUpdated: string;
-    gender: string;
-    firstName: string;
+export interface IDataUserNameState {
+  image: string;
+  dateUpdated: string;
+  gender: string;
+  firstName: string;
   lastName: string;
   locationId: number;
   dob: string;
-    occupation: string;
-    about: string;
-  };
+  occupation: string;
+  about: string;
+}
 
+export interface postsState {
+  postId: number;
+  userId: string;
+  datePublished: string;
+  images: any;
+  postLikeCount: string;
+  commentCount: string;
+  postView: number;
+  postFavorite: boolean;
+  title: string;
+  content: string;
+}
 
 interface CounterState {
   modalCreate: boolean;
@@ -33,24 +45,25 @@ interface CounterState {
   modalLogout: boolean;
   modalViewPosts: boolean;
   modalStory: boolean;
+  postsCnt: number;
   like: number;
   comment: number;
   follow: number;
   follower: number;
   following: number;
-  posts: number;
   search: string;
   userNameProfile: string;
-  gotToken: IGotTokenStgoate;
+  gotToken: IGotTokenState;
   dataUserName: IDataUserNameState;
+  posts: postsState;
 }
 
 // data: {
 //   image: "625f2adb-df23-4aca-a8c9-991413005558.JPG",
 //   dateUpdated: "2023-09-09T07:08:37.0817994Z",
 //   gender: "Male",
-//   firstName: "Olim",
 //   lastName: "Karomatov",
+//   firstName: "Olim",
 //   locationId: 1,
 //   dob: "2003-09-08T14:51:46.65721Z",
 //   occupation: "Developer",
@@ -64,12 +77,12 @@ const initialState: CounterState = {
   modalLogout: false,
   modalViewPosts: false,
   modalStory: false,
+  postsCnt: 0,
   like: 0,
   comment: 0,
   follow: 0,
   follower: 0,
   following: 0,
-  posts: 0,
   search: "",
   userNameProfile: "",
   gotToken: {
@@ -82,7 +95,7 @@ const initialState: CounterState = {
     aud: "",
   },
   dataUserName: {
-    image:"",
+    image: "",
     dateUpdated: "",
     gender: "",
     firstName: "",
@@ -90,9 +103,22 @@ const initialState: CounterState = {
     locationId: 0,
     dob: "",
     occupation: "",
-    about:""
+    about: "",
   },
 
+  // posts: {
+  //   postId: 0,
+  //   userId: "",
+  //   datePublished: "",
+  //   images: [],
+  //   postLikeCount: "",
+  //   commentCount: "",
+  //   postView: 0,
+  //   postFavorite: false,
+  //   title: "",
+  //   content: "",
+  // },
+  posts:[],
 };
 
 export const counterSlice = createSlice({
@@ -154,6 +180,9 @@ export const counterSlice = createSlice({
     ) {
       state.dataUserName = action.payload;
     },
+    setPosts(state: CounterState, action: PayloadAction<postsState>) {
+      state.posts = action.payload;
+    },
   },
 });
 
@@ -178,6 +207,7 @@ export const {
   likeInactive,
   setGotToken,
   setDataUserName,
+  setPosts,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

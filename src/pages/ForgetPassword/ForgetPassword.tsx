@@ -14,7 +14,7 @@ const ForgetPassword = () => {
 
     try {
       const { data } = await axiosRequest.delete(
-        `Account/ForgotPassword/${emailUser}`
+        `Account/ForgotPassword/`
       );
       navigate("/reset-password");
     } catch (error) {}

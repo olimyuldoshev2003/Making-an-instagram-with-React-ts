@@ -60,7 +60,6 @@ const enterLoading = (index: number) => {
 
         // const object = JSON.parse(atob(token.split(".")[1]));
         dispatch(setGotToken(JSON.parse(atob(data.data.split(".")[1]))));
-        
         navigate("/home");
       } else {
         setTimeout(() => {
