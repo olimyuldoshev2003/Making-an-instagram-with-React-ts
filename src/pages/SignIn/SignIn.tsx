@@ -113,7 +113,6 @@ const enterLoading = (index: number) => {
               <TextField
                 id="outlined-basic"
                 label="Password"
-                type="password"
                 variant="filled"
                 InputProps={{
                   style: {
@@ -129,6 +128,7 @@ const enterLoading = (index: number) => {
                     fontSize: `14px`,
                   },
                 }}
+                type="password"
                 value={password}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setPasword(event.target.value)
