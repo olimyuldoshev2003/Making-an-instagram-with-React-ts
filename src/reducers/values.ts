@@ -56,6 +56,8 @@ interface CounterState {
   gotToken: IGotTokenState;
   dataUserName: IDataUserNameState;
   posts: postsState;
+  postId: number;
+  userId: number;
 }
 
 // data: {
@@ -118,7 +120,9 @@ const initialState: CounterState = {
   //   title: "",
   //   content: "",
   // },
-  posts:[],
+  posts: [],
+  postId: 0,
+  userId: 0,
 };
 
 export const counterSlice = createSlice({
@@ -137,8 +141,10 @@ export const counterSlice = createSlice({
     handleCloseMore(state: CounterState) {
       state.modalMore = false;
     },
-    openModalSettingsOfPost(state: CounterState) {
+    openModalSettingsOfPost(state: CounterState, action) {
       state.modalSettingsOfPost = true;
+      state.postId = action.payload.postId;
+      state.userId = action.payload.userId;
     },
     handleCloseSettingsOfPost(state: CounterState) {
       state.modalSettingsOfPost = false;
@@ -155,6 +161,9 @@ export const counterSlice = createSlice({
     },
     closeLogoutModal(state: CounterState) {
       state.modalLogout = false;
+    },
+    closeAddModal(state: CounterState) {
+      state.modalCreate = false;
     },
     setSearch(state: CounterState, action: PayloadAction<string>) {
       state.search = action.payload;
@@ -183,6 +192,9 @@ export const counterSlice = createSlice({
     setPosts(state: CounterState, action: PayloadAction<postsState>) {
       state.posts = action.payload;
     },
+    closeModalAdd(state: CounterState) {
+      state.modalCreate = false;
+    }
   },
 });
 
@@ -191,6 +203,7 @@ export const selectCount = (state: RootState) => state.values;
 export const {
   openAddModal,
   handleClose,
+  closeModalAdd,
   openModalMore,
   handleCloseMore,
   openModalSettingsOfPost,
@@ -208,6 +221,7 @@ export const {
   setGotToken,
   setDataUserName,
   setPosts,
+  closeAddModal
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

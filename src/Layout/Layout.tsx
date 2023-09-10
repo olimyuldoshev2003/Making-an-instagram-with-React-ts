@@ -24,7 +24,9 @@ import Switcher from "../components/Switch Ui/Switcher";
 import imgProfileLogo from "../../src/assets/My-profile-photo.jpg";
 import {
   IGotTokenState,
+  closeAddModal,
   closeLogoutModal,
+  closeModalAdd,
   handleClose,
   handleCloseLogoutModal,
   handleCloseMore,
@@ -33,7 +35,7 @@ import {
   openModalMore,
   setDataUserName,
   setSearch,
-  } from "../reducers/values";
+} from "../reducers/values";
 import { useDispatch } from "react-redux";
 import { Box, Modal } from "@mui/material";
 
@@ -63,18 +65,16 @@ const Layout = () => {
   const modalMore = useAppSelector((store) => store.values.modalMore);
   const modalLogout = useAppSelector((store) => store.values.modalLogout);
   const search = useAppSelector((store) => store.values.search);
-  
+
   const dataUserName = useAppSelector((store) => store.values.dataUserName);
-  
-  
+
   const [state, setState] = React.useState({
     left: false,
   });
-  
-  const token = JSON.parse(
-    atob((localStorage.getItem("access_token")).split(".")[1])
-  );
 
+  const token = JSON.parse(
+    atob(localStorage.getItem("access_token").split(".")[1])
+  );
 
   async function getUserNameImage() {
     try {
@@ -84,9 +84,6 @@ const Layout = () => {
       dispatch(setDataUserName(data.data));
     } catch (error) {}
   }
-
-
-  
 
   useEffect(() => {
     getUserNameImage();
@@ -179,6 +176,10 @@ const Layout = () => {
 
   const [users, setUsers] = useState([]);
 
+  const [imageAddPost, setImageAddPost] = useState<any>(null);
+  // const [titleAddPost, setTitleAddPost] = useState<string>("");
+  // const [contentAddPost, setContentAddPost] = useState<string>("");
+
   async function getUsers() {
     try {
       const { data } = await axiosRequest.get(
@@ -188,9 +189,52 @@ const Layout = () => {
     } catch (error) {}
   }
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  // async function addPosts(event: React.FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+
+  //   const newObj: any = {
+  //     images: [imageAddPost.slice(12).toLowerCase()],
+  //     title: titleAddPost,
+  //     content: contentAddPost,
+  //   };
+
+  //   // console.log(newObj);
+
+  //   try {
+  //     const { data } = await axiosRequest.post("Post/add-post", newObj);
+  //     console.log(data);
+
+  //   } catch (error) {}
+  // }
+  
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
+  
+  const PostData = async (event: any) => {
+    event.preventDefault()
+    const obj = new FormData();
+
+    let ar = [...imageAddPost]
+
+    for (let i = 0; i < ar.length; i++){
+      obj.append("Images", ar[i])
+    }
+    
+    
+    obj.append("Title", event.target["titleAdd"].value);
+    obj.append("Content", event.target["contentAdd"].value);
+    // console.log(obj);
+    
+    try {
+
+      const { data } = await axiosRequest.post("Post/add-post", obj);
+      console.log(data);
+
+      dispatch(closeModalAdd());
+    } catch (error) {}
+   
+  }
 
   return (
     <div className="dark:bg-[#000]">
@@ -363,77 +407,65 @@ const Layout = () => {
         aria-describedby="modal-modal-description"
         className="flex justify-center items-center"
       >
-        <Box className="  bg-[#fff] outline-none rounded-[10px] dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff]">
-          <h1 className="text-center py-[10px] border-b-[1px] border-b-[#000] dark:text-[#fff] dark:border-[#fff]">
-            Create new post
-          </h1>
-          <div className="add_modal_block_2 flex flex-col items-center gap-[14px] md:p-[120px_100px] sm:w-[280px] md:w-[100%] sm:p-[30px]">
-            <IoIosImages className="text-[80px] font-[100] dark:text-[#fff]" />
-            <h1 className="text-[20px] font-[500] dark:text-[#fff]">
-              Drag photos and videos here
+        <Box className="w-[80%] py-[10px] bg-[#fff] outline-none rounded-[10px] dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff]">
+          <div className="flex justify-between items-center px-[30px] border-b-[1px] border-b-[#000]">
+            <h1 className="text-center py-[10px] dark:text-[#fff] dark:border-[#fff] text-[23px]">
+              Create new post
             </h1>
-            <button className="rounded-[10px] p-[5px_10px] bg-[#0095ff] text-[#fff] text-[16px]">
-              Select from computer
-            </button>
+            <span className="text-[24px] cursor-pointer dark:text-[#fff]" onClick={()=>dispatch(closeAddModal())}>&times;</span>
           </div>
+          <form
+            className="grid lg:grid-cols-[40%_60%] w-[100%] justify-center items-center"
+            onSubmit={PostData}
+          >
+            <div className="add_modal_block_2 flex flex-col items-center gap-[19px] md:p-[120px_40px] sm:w-[280px] md:w-[100%] sm:p-[30px] ">
+              <IoIosImages className="text-[80px] font-[100] dark:text-[#fff]" />
+              <h1 className="text-[16px] font-[500] dark:text-[#fff]">
+                Drag photos and videos here
+              </h1>
+              <input
+                type="file"
+                className="rounded-[10px] p-[5px_10px] sm:w-[100%] md:w-[300px] bg-[#0095ff] text-[#fff] text-[16px]"
+                multiple
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setImageAddPost(event.target.files)
+                }
+                required
+                name="imgAdd"
+              />
+            </div>
+            <div className="flex flex-col justify-center items-center gap-[20px]">
+              <input
+                type="text"
+                name="titleAdd"
+                id=""
+                // value={titleAddPost}
+                // onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                //   setTitleAddPost(event.target.value)
+                // }
+                className="outline-[#80ff00] border-[1px] p-[10px_40px] text-[#000] placeholder:text-[#000]  border-[#000] text-[18px] rounded-[30px]"
+                placeholder="Title"
+                required
+              />
+              <input
+                type="text"
+                name="contentAdd"
+                id=""
+                required
+                // value={contentAddPost}
+                // onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                //   setContentAddPost(event.target.value)
+                // }
+                className="outline-[#80ff00] border-[1px] p-[10px_40px] text-[#000] placeholder:text-[#000] border-[#000] text-[18px] rounded-[30px]"
+                placeholder="Content"
+              />
+              <button className="p-[5px_40px] bg-[green] text-[#fff] rounded-[20px]">
+                Add
+              </button>
+            </div>
+          </form>
         </Box>
       </Modal>
-
-      {/* <Modal
-        open={modalMore}
-        onClose={() => dispatch(handleCloseMore())}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className="flex justify-center items-center"
-      >
-        <Box className="p-[20px] outline-none dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff] w-[280px] flex flex-col gap-[8px]">
-          <div>
-            <button className="text-[19px] dark:text-[#fff] flex items-center gap-[30px]">
-              <FiSettings className="text-[#000] dark:text-[#fff]" />
-              Settings
-            </button>
-          </div>
-          <div>
-            <button className="text-[19px] dark:text-[#fff] flex items-center gap-[30px]">
-              <AiOutlineFieldTime className="text-[#000] dark:text-[#fff]" />
-              Your activity
-            </button>
-          </div>
-          <div>
-            <button className="text-[19px] dark:text-[#fff] flex items-center gap-[30px]">
-              <BsBookmark className="text-[#000] dark:text-[#fff]" />
-              Saved
-            </button>
-          </div>
-          <div>
-            <button className="text-[19px] dark:text-[#fff] flex items-center gap-[30px]">
-              <GoReport className="text-[#000] dark:text-[#fff]" />
-              Report a problem
-            </button>
-          </div>
-          <div className="flex  items-center gap-[10px]">
-            <Switcher />
-            <h1 className="text-[17px] dark:text-[#fff]">Switch appearence</h1>
-          </div>
-          <div className="switch_account_and_logout mt-[22px]">
-            <div>
-              <button className="text-[19px] dark:text-[#fff] flex items-center gap-[30px]">
-                <LuSwitchCamera className="text-[#000] dark:text-[#fff]" />
-                Switch accounts
-              </button>
-            </div>
-            <div onClick={() => dispatch(openLogoutModal())}>
-              <button
-                className="text-[19px] dark:text-[#fff] flex items-center gap-[30px]"
-                onClick={() => dispatch(openLogoutModal())}
-              >
-                <LogoutIcon className="text-[#000] dark:text-[#fff]" />
-                Log out
-              </button>
-            </div>
-          </div>
-        </Box>
-      </Modal> */}
 
       <Menu
         open={modalMore}
@@ -522,29 +554,6 @@ const Layout = () => {
           </div>
         </Box>
       </Modal>
-
-      {/* <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={modalMore}
-        onClose={() => dispatch(handleCloseMore())}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <div className="  bg-[#fff] p-[20px] outline-none rounded-[10px] dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff] w-[280px] flex flex-col gap-[8px]">
-          <MenuItem className="flex  items-center gap-[10px]">
-            <Switcher />
-            <h1 className="text-[17px] dark:text-[#fff]">Switch appearence</h1>
-          </MenuItem>
-          <MenuItem>
-            <button className="text-[17px] dark:text-[#fff] flex items-center gap-[30px]">
-              Log out
-            </button>
-          </MenuItem>
-          <MenuItem className="flex items-center gap-[15px] text-[32px] text-[red] hover:text-[#f35252] dark:text-[red]"></MenuItem>
-        </div>
-      </Menu> */}
     </div>
   );
 

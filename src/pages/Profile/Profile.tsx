@@ -47,16 +47,6 @@ const Profile = () => {
   const token = JSON.parse(
     atob(localStorage.getItem("access_token").split(".")[1])
   );
-  async function getPosts() {
-    try {
-      const { data } = await axiosRequest.get("Post/get-posts");
-      dispatch(setPosts(data.data));
-    } catch (error) {}
-  }
-
-  useEffect(() => {
-    getPosts();
-  }, []);
 
   return (
     <div>
