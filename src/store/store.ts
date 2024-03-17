@@ -1,10 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import values from "../reducers/values";
+import homeState from "../reducers/homeState/homeState";
+import layoutState from "../reducers/layoutState/layoutState";
+import profileState from "../reducers/profileState/profileState";
 // ...
 
 export const store = configureStore({
   reducer: {
-    values
+    values,
+    homeState,
+    layoutState,
+    profileState
   },
 });
 

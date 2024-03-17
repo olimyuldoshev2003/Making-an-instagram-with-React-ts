@@ -1,6 +1,13 @@
 import imgLogin from "/src/assets/photo_2023-08-19_13-32-59.jpg";
-import { TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+
+
+//For material ui
+import { FormControl, IconButton, InputAdornment, InputLabel, TextField } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import FilledInput from "@mui/material/FilledInput";
+
 import "../../App.css";
 
 //For images
@@ -8,66 +15,76 @@ import logoInstaSignIn from "../../assets/LOGO (1).png";
 import logoAppStore from "../../assets/image 4.png";
 import logoGooglePlay from "../../assets/image 5.png";
 import React, { useState } from "react";
-import axios from "axios";
 import { saveToken } from "../../utils/token";
 import { message } from "antd";
 import { axiosRequest } from "../../utils/axiosRequest";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setGotToken } from "../../reducers/values";
+// import { useAppDispatch } from "../../store/hooks";
 
 const SignIn = () => {
+  // const [loadings, setLoadings] = useState<boolean[]>([]);
 
-  const [loadings, setLoadings] = useState<boolean[]>([]);
+  // const enterLoading = (index: number) => {
+  //   setLoadings((prevLoadings) => {
+  //     const newLoadings = [...prevLoadings];
+  //     newLoadings[index] = true;
+  //     return newLoadings;
+  //   });
 
-const enterLoading = (index: number) => {
-  setLoadings((prevLoadings) => {
-    const newLoadings = [...prevLoadings];
-    newLoadings[index] = true;
-    return newLoadings;
-  });
+  //   setTimeout(() => {
+  //     setLoadings((prevLoadings) => {
+  //       const newLoadings = [...prevLoadings];
+  //       newLoadings[index] = false;
+  //       return newLoadings;
+  //     });
+  //   }, 1000);
+  // };
 
-  setTimeout(() => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = false;
-      return newLoadings;
-    });
-  }, 1000);
-};
+  //State and function for material ui show password in input of material ui
+    const [showPassword, setShowPassword] = React.useState(false);
 
-  const dispatch = useAppDispatch()
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const [name, setName] = useState<string>("");
+      const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+      ) => {
+        event.preventDefault();
+      };
+
+
+  const [userName, setUserName] = useState<string>("");
   const [password, setPasword] = useState<string>("");
-
+      
   const navigate = useNavigate();
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>)  {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const user = {
-      userName: name,
+      userName: userName,
       password: password,
     };
     try {
-      const { data } = await axiosRequest.post("/Account/login", user);
-      if (
-        data.statusCode === 200 &&
-        data.data !== "Your username or password is incorrect!!!"
-      ) {
-
-        saveToken(data.data);
-        // console.log(data.data)
-
-        // const object = JSON.parse(atob(token.split(".")[1]));
-        dispatch(setGotToken(JSON.parse(atob(data.data.split(".")[1]))));
-        navigate("/home");
+      if (userName.trim().length === 0 || password.trim().length === 0) {
+        message.error("Please fill all fields")
       } else {
-        setTimeout(() => {
-          message.error("Wrong password or login !");
-        }, 1200);
+        const { data } = await axiosRequest.post("/Account/login", user);
+        if (
+          data.statusCode === 200 &&
+          data.data !== "Your username or password is incorrect!!!"
+        ) {
+          saveToken(data.data);
+          // console.log(data.data)
+
+          // const object = JSON.parse(atob(token.split(".")[1]));
+          navigate("/home");
+          message.success("You signed in to your account");
+        } else if(data.statusCode === 400){
+          // setTimeout(() => {
+            message.error("Wrong password or login !");
+          // }, 1200);
+        }
       }
     } catch (error) {}
-  };
+  }
   return (
     <div>
       <div className="flex justify-evenly items-center p-[20px_0]">
@@ -105,12 +122,12 @@ const enterLoading = (index: number) => {
                 label="Phone, username or email adress"
                 variant="filled"
                 type="text"
-                value={name}
+                value={userName}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setName(event.target.value)
+                  setUserName(event.target.value)
                 }
               />
-              <TextField
+              {/* <TextField
                 id="outlined-basic"
                 label="Password"
                 variant="filled"
@@ -133,7 +150,35 @@ const enterLoading = (index: number) => {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setPasword(event.target.value)
                 }
-              />
+              /> */}
+
+              <FormControl sx={{ m: 1, width: "32ch" }} variant="filled">
+              <InputLabel htmlFor="filled-adornment-password">
+                Password
+              </InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                value={password}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setPasword(event.target.value)
+                }
+                required
+                />
+                
+                </FormControl>
 
               <button
                 type="submit"

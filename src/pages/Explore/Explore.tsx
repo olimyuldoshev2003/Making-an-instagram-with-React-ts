@@ -1,9 +1,13 @@
+import { useAppSelector } from "../../store/hooks";
 
 const Explore = () => {
+
+  const posts = useAppSelector((store) => store.homeState.posts);
+
   return (
     <div>
       <div className="lg:ml-[280px] md:ml-[90px] pt-[50px] dark:bg-[#000]">
-        <h1 className="dark:text-[#fff] text-center text-[30px] sm:hidden md:block ">
+        <h1 className="dark:text-[#fff] text-center text-[30px] sm:hidden md:block">
           Explore some images
         </h1>
         <div className="sm:flex sm:justify-center md:hidden">

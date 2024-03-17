@@ -1,16 +1,16 @@
 import jwt_decode from "jwt-decode"
-import { setGotToken } from "../reducers/values";
+import { IDecodedToken } from "../Types/types";
 
 function saveToken(access_token:string) {
     localStorage.setItem("access_token", access_token)
     
 }
 
-function getToken() {
+function getToken():IDecodedToken | null {
 
 
 
-    let token:string|null = localStorage.getItem("access_token");
+    let token: string | null = localStorage.getItem("access_token") ?? null;
     try {
         if (typeof token === "string") {
             return jwt_decode(token);
@@ -20,6 +20,7 @@ function getToken() {
         
     }
     
+    return null
 
 }
 

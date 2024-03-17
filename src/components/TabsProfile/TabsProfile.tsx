@@ -7,14 +7,21 @@ import { BsBookmark, BsFillGrid3X3GapFill } from "react-icons/bs";
 import { BiMoviePlay, BiUserPin } from "react-icons/bi";
 import imgForPost from "../../assets/My-photo.jpg";
 
+// import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+// import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+// import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+// import TelegramIcon from "@mui/icons-material/Telegram";
+// import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { Modal } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  handleCloseViewMyPostsOfProfileModal,
-  openModalViewPostMine,
-} from "../../reducers/values";
+import { setModalViewMainPosts } from "../../reducers/profileState/profileState";
+import { getMainPostById } from "../../api/profileApi/profileApi";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -58,11 +65,20 @@ export default function TabsProfile() {
 
   const dispatch = useAppDispatch();
 
-  const modalViewPosts = useAppSelector((store) => store.values.modalViewPosts);
-  const posts = useAppSelector((store) => store.values.posts);
+  const mainUser = useAppSelector((store) => store.profileState.mainUser);
 
-  const token = JSON.parse(
-    atob(localStorage.getItem("access_token").split(".")[1])
+
+  const modalViewMainPosts = useAppSelector(
+    (store) => store.profileState.modalViewMainPosts
+  );
+
+  // const posts = useAppSelector((store) => store.values.posts);
+  const mainPostsOfMainUser = useAppSelector(
+    (store) => store.profileState.mainPostsOfMainUser
+  );
+
+  const mainPostById = useAppSelector(
+    (store) => store.profileState.mainPostById
   );
 
   return (
@@ -125,71 +141,39 @@ export default function TabsProfile() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        {
           <div className="grid grid-cols-3 gap-[3px]">
-            {posts.map((item) => {
+            {mainPostsOfMainUser.map((item: any) => {
               return (
-                <div className="relative">
+                <div
+                  key={item.id}
+                  className="relative"
+                  onClick={() => {
+                    dispatch(getMainPostById(item.postId));
+                    dispatch(setModalViewMainPosts(true));
+                  }}
+                >
                   <img
-                    src={`${import.meta.env.VITE_API_URL}images/${item.images}`}
-                    className="object-cover w-full h-full"
+                    src={`${import.meta.env.VITE_API_URL}images/${
+                      item.images[0]
+                    }`}
+                    className="object-full sm:w-full h-[200px] md:w-[200px] object-full"
                   />
-                  <div
-                    className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
-                    onClick={() => dispatch(openModalViewPostMine())}
-                  >
+                  <div className="absolute sm:w-full h-[200px] md:w-[200px] object-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100">
                     <div className="flex flex-col gap-[4px] items-center">
                       <div className="text-white flex gap-[4px]">
                         <AiFillHeart className="text-[24px]" />
-                        <p className="font-[800]">104</p>
+                        <p className="font-[800]">{item.postLikeCount}</p>
                       </div>
                       <div className="text-white flex gap-[4px]">
                         <FaComment className="text-[20px]" />
-                        <p className="font-[800]">5</p>
+                        <p className="font-[800]">{item.postView}</p>
                       </div>
                     </div>
                   </div>
                 </div>
               );
             })}
-            {/* <div className="relative">
-              <img src={imgForPost} className="object-cover w-full h-full" />
-              <div
-                className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
-                onClick={() => dispatch(openModalViewPostMine())}
-              >
-                <div className="flex flex-col gap-[4px] items-center">
-                  <div className="text-white flex gap-[4px]">
-                    <AiFillHeart className="text-[24px]" />
-                    <p className="font-[800]">117</p>
-                  </div>
-                  <div className="text-white flex gap-[4px]">
-                    <FaComment className="text-[20px]" />
-                    <p className="font-[800]">14</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <img src={imgForPost} className="object-cover w-full h-full" />
-              <div
-                className="absolute w-full h-full top-0 cursor-pointer bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 duration-100"
-                onClick={() => dispatch(openModalViewPostMine())}
-              >
-                <div className="flex flex-col gap-[4px] items-center">
-                  <div className="text-white flex gap-[4px]">
-                    <AiFillHeart className="text-[24px]" />
-                    <p className="font-[800]">150</p>
-                  </div>
-                  <div className="text-white flex gap-[4px]">
-                    <FaComment className="text-[20px]" />
-                    <p className="font-[800]">10</p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
-        }
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two
@@ -197,17 +181,103 @@ export default function TabsProfile() {
       <CustomTabPanel value={value} index={2}>
         Item Three
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        Item Four
-      </CustomTabPanel>
       <Modal
-        open={modalViewPosts}
-        onClose={() => dispatch(handleCloseViewMyPostsOfProfileModal())}
+        open={modalViewMainPosts}
+        onClose={() => dispatch(setModalViewMainPosts(false))}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         className="flex justify-center items-center"
       >
-        <Box className="w-[300px] py-[30px] bg-[#fff] flex items-center justify-center flex-col rounded-[10px] border-none outline-none dark:bg-[#000]"></Box>
+        <Box className="bg-[#fff] outline-none dark:border-[1px] border-[#fff]">
+          <div className="flex">
+            <div className="w-[350px] h-[518px] border-solid border-[1px] border-gray-400 bg-black">
+              {/* {mainPostById?.images?.map((item: any) => {
+                return (
+                  <img
+                    className="h-[100%] w-[100%]"
+                    src={`${import.meta.env.VITE_API_URL}${item}`}
+                    alt=""
+                  />
+                );
+              })} */}
+              <Swiper>
+                {mainPostById?.images?.map((item: any) => {
+                  return (
+                    <SwiperSlide>
+                      <div>
+                        <img
+                          className="h-[100%] w-[100%]"
+                          src={`${import.meta.env.VITE_API_URL}images/${item}`}
+                          alt=""
+                        />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
+            <div className="bg-[#fff] dark:bg-[#000000]">
+              <nav className=" flex justify-between  h-[60px] w-[450px] border-solid border-[1px] border-gray-400 items-center px-[2%]">
+                <div className="flex gap-3 items-center">
+                  {/* {mainUser.id == mainPostById?.userId ? ( */}
+                  <div className="flex items-center gap-[10px]">
+                    {mainUser.image === "" ? (
+                      <img
+                        src={`  ${"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}`}
+                        className="w-[30px] h-[30px] rounded-full"
+                      />
+                    ) : (
+                      <img
+                        src={`  ${import.meta.env.VITE_API_URL}images/${
+                          mainUser.image
+                        }`}
+                        className="w-[30px] h-[30px] rounded-full"
+                      />
+                    )}
+
+                    <h1 className="text-[#000] dark:text-[#fff]">
+                      {mainUser.userName}
+                    </h1>
+                  </div>
+                  {/* ) : null} */}
+
+                </div>
+                {/* <MoreHorizIcon /> */}
+              </nav>
+              <div className="h-[300px] overflow-auto px-[3%]">
+                {mainPostById?.comments?.length === 0 ? <div><h1 className="">Not commented</h1></div> : mainPostById?.comments?.map((item: any) => {
+                  return <h1>{item.comment}</h1>;
+                })}
+              </div>
+
+              <footer className="py-[10px] px-[2%]">
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-3">
+                    {/* <FavoriteBorderIcon /> */}
+                    {/* <ChatBubbleOutlineIcon /> */}
+                    {/* <TelegramIcon /> */}
+                  </div>
+                  {/* <BookmarkBorderIcon /> */}
+                </div>
+                <div className="py-[10px] ">
+                  <h1>{mainPostById?.postLikeCount}</h1>
+                  <h1>{mainPostById?.datePublished}</h1>
+                  <p></p>
+                </div>
+                <div className="flex gap-2 items-center py-[3px] ">
+                  {/* <SentimentSatisfiedAltIcon /> */}
+                  <input
+                    className="w-[330px] outline-none h-[40px]"
+                    type="text"
+                    placeholder="Add a comment"
+                  />
+
+                  <button className="text-blue-600 ">post</button>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </Box>
       </Modal>
     </Box>
   );
