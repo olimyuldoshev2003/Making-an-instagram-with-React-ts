@@ -1,21 +1,20 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from './Layout/Layout';
-import NotFound from './pages/NotFound/NotFound';
-import Home from './pages/Home/Home';
-import Reels from './pages/Reels/Reels';
-import Explore from './pages/Explore/Explore';
-import Messages from './pages/Messages/Messages';
-import Profile from './pages/Profile/Profile';
-import SignUp from './pages/SignUp/SignUp';
-import SignIn from './pages/SignIn/SignIn';
-import Edit from './pages/Edit/Edit';
+import Layout from "./Layout/Layout";
+import NotFound from "./pages/NotFound/NotFound";
+import Home from "./pages/Home/Home";
+import Reels from "./pages/Reels/Reels";
+import Explore from "./pages/Explore/Explore";
+import Messages from "./pages/Messages/Messages";
+import Profile from "./pages/Profile/Profile";
+import SignUp from "./pages/SignUp/SignUp";
+import SignIn from "./pages/SignIn/SignIn";
+import Edit from "./pages/Edit/Edit";
 
 import ProtectedRoute from "./utils/ProtectedRoute";
 import AuthCheck from "./utils/AuthCheck";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
-
 
 const App = () => {
   const router = createBrowserRouter([
@@ -31,20 +30,36 @@ const App = () => {
     //SignUp
     {
       path: "signup",
-      element: <SignUp />,
+      element: (
+        <AuthCheck>
+          <SignUp />,
+        </AuthCheck>
+      ),
     },
     //Forget Password
     {
       path: "forget-password",
-      element:<ForgetPassword/>
+      element: (
+        <AuthCheck>
+          <ForgetPassword />
+        </AuthCheck>
+      ),
     },
     {
       path: "reset-password",
-      element:<ResetPassword/>
+      element: (
+        <AuthCheck>
+          <ResetPassword />
+        </AuthCheck>
+      ),
     },
     {
       path: "change-password",
-      element:<ChangePassword/>
+      element: (
+        <AuthCheck>
+          <ChangePassword />
+        </AuthCheck>
+      ),
     },
     //Home
     {
@@ -61,29 +76,49 @@ const App = () => {
         },
         {
           path: "explore",
-          element: <Explore />,
+          element: (
+            <ProtectedRoute>
+              <Explore />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "reels",
-          element: <Reels />,
+          element: (
+            <ProtectedRoute>
+              <Reels />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "messages",
-          element: <Messages />,
+          element: (
+            <ProtectedRoute>
+              <Messages />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "profile",
-          element: <Profile />,
+          element: (
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "edit",
-          element: <Edit />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
+          element: (
+            <ProtectedRoute>
+              <Edit />
+            </ProtectedRoute>
+          ),
         },
       ],
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
 
@@ -98,6 +133,6 @@ const App = () => {
 
     <RouterProvider router={router} />
   );
-}
+};
 
-export default App
+export default App;

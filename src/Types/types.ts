@@ -19,3 +19,14 @@ export interface C_MsUsers {
   user: IMessageUser;
   setIdx: number;
 }
+
+export interface IDecodedToken {
+  sid: string;
+  name: string;
+  email: string;
+  sub: string;
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  aud: string,
+  exp: number,
+  iss:string
+}

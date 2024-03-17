@@ -23,7 +23,6 @@ import Switcher from "../components/Switch Ui/Switcher";
 //For images
 import imgProfileLogo from "../../src/assets/My-profile-photo.jpg";
 import {
-  IGotTokenState,
   closeAddModal,
   closeLogoutModal,
   closeModalAdd,
@@ -33,7 +32,6 @@ import {
   openAddModal,
   openLogoutModal,
   openModalMore,
-  setDataUserName,
   setSearch,
 } from "../reducers/values";
 import { useDispatch } from "react-redux";
@@ -52,8 +50,30 @@ import { Menu, MenuItem } from "@mui/material";
 // import { Menu } from "antd";
 // import MenuItem from "antd/es/menu/MenuItem";
 import { useAppSelector } from "../store/hooks";
-import { saveToken } from "../utils/token";
+import { getToken, saveToken } from "../utils/token";
 import { axiosRequest } from "../utils/axiosRequest";
+import { searchUsers } from "../api/layoutApi/layoutApi";
+import {
+  getFollowers,
+  getFollowings,
+  getMainPostsOfMainUser,
+  getMainUser,
+} from "../api/profileApi/profileApi";
+import {
+  addPost,
+  followUser,
+  getFollowingsPosts,
+  getPosts,
+  getReels,
+  getStories,
+  getUsers,
+  unfollowUser,
+} from "../api/homeApi/homeApi";
+import {
+  closeModalAddPost,
+  handleCloseModalAddPost,
+  openModalAddPost,
+} from "../reducers/layoutState/layoutState";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
@@ -61,34 +81,36 @@ const Layout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const modalCreate = useAppSelector((store) => store.values.modalCreate);
+  const modalAddPost = useAppSelector(
+    (store) => store.layoutState.modalAddPost
+  );
   const modalMore = useAppSelector((store) => store.values.modalMore);
   const modalLogout = useAppSelector((store) => store.values.modalLogout);
   const search = useAppSelector((store) => store.values.search);
+  const searchedUsers = useAppSelector(
+    (store) => store.layoutState.searchedUsers
+  );
 
-  const dataUserName = useAppSelector((store) => store.values.dataUserName);
+  const mainUser = useAppSelector((store) => store.profileState.mainUser);
 
   const [state, setState] = React.useState({
     left: false,
   });
 
-  const token = JSON.parse(
-    atob(localStorage.getItem("access_token").split(".")[1])
-  );
-
-  async function getUserNameImage() {
-    try {
-      const { data } = await axiosRequest.get(
-        `UserProfile/get-UserProfile-by-id?id=${token.sid}`
-      );
-      dispatch(setDataUserName(data.data));
-    } catch (error) {}
-  }
+  const token = getToken();
 
   useEffect(() => {
-    getUserNameImage();
-  }, []);
-
+    dispatch(searchUsers(search));
+    dispatch(getMainUser(token?.sid));
+    dispatch(getMainPostsOfMainUser(token?.sid));
+    dispatch(getPosts());
+    dispatch(getReels());
+    dispatch(getUsers());
+    dispatch(getFollowers(token?.sid));
+    dispatch(getFollowings(token?.sid));
+    dispatch(getStories());
+    // dispatch(getFollowingsPosts(token?.sid));
+  }, [search, dispatch]);
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -130,35 +152,49 @@ const Layout = () => {
       <Divider className="dark:border-[#000]" />
       <List>
         <div className="flex flex-col gap-[20px] mt-[20px]">
-          {users
-            .filter((item: any) => {
-              return item.userName
-                .trim()
-                .toLowerCase()
-                .includes(search.toLowerCase());
-            })
-            .map((item: IUsers) => {
-              return (
-                <div className="flex justify-between items-center">
-                  <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]  ">
+          {searchedUsers.map((item: any) => {
+            return (
+              <div key={item.id} className="flex justify-between items-center">
+                <div className="border-[#bfbfbf] border-[2px] rounded-full p-[1px]">
+                  {item.avatar === "" ? (
                     <img
-                      src={imgProfileLogo}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
+                      src={`  ${"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}`}
+                      className="w-[30px] h-[30px] rounded-full"
                     />
-                  </div>
-                  <div className="ml-[15px]">
-                    <p className="text-[14px] font-[700] dark:text-[#fff]">
-                      {item.userName}
-                    </p>
-                    <h3 className="text-[11px] font-[400] dark:text-[#fff]">
-                      Followed by galibr
-                    </h3>
-                  </div>
-                  <button className="ml-[30px] text-[#26c2e5]">Follow</button>
+                  ) : (
+                    <img
+                      src={`  ${import.meta.env.VITE_API_URL}images/${
+                        item.avatar
+                      }`}
+                      className="w-[30px] h-[30px] rounded-full"
+                    />
+                  )}
                 </div>
-              );
-            })}
+                <div className="ml-[15px]">
+                  <p className="text-[14px] font-[700] dark:text-[#fff]">
+                    {item.userName}
+                  </p>
+                  <h3 className="text-[11px] font-[400] dark:text-[#fff]">
+                    Followed by galibr
+                  </h3>
+                </div>
+                <button
+                  className="ml-[30px] text-[#26c2e5]"
+                  onClick={() => {
+                    item.subscriptions === false
+                      ? dispatch(followUser(item.id))
+                      : dispatch(unfollowUser(item.id));
+                  }}
+                >
+                  {item.subscriptions === true
+                    ? `Following`
+                    : item.subscriptions === false
+                    ? `Follow`
+                    : null}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </List>
     </Box>
@@ -166,28 +202,9 @@ const Layout = () => {
 
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  interface IUsers {
-    id: string;
-    dateRegistred: string;
-    userName: number;
-    email: string;
-    userType: number;
-  }
-
-  const [users, setUsers] = useState([]);
-
   const [imageAddPost, setImageAddPost] = useState<any>(null);
   // const [titleAddPost, setTitleAddPost] = useState<string>("");
   // const [contentAddPost, setContentAddPost] = useState<string>("");
-
-  async function getUsers() {
-    try {
-      const { data } = await axiosRequest.get(
-        `/User/get-users/?PageSize=${25}`
-      );
-      setUsers(data.data);
-    } catch (error) {}
-  }
 
   // async function addPosts(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault();
@@ -206,35 +223,34 @@ const Layout = () => {
 
   //   } catch (error) {}
   // }
-  
+
   // useEffect(() => {
   //   getUsers();
   // }, []);
-  
-  const PostData = async (event: any) => {
-    event.preventDefault()
-    const obj = new FormData();
 
-    let ar = [...imageAddPost]
+  // const PostData = async (event: any) => {
 
-    for (let i = 0; i < ar.length; i++){
-      obj.append("Images", ar[i])
-    }
-    
-    
-    obj.append("Title", event.target["titleAdd"].value);
-    obj.append("Content", event.target["contentAdd"].value);
-    // console.log(obj);
-    
-    try {
+  // event.preventDefault();
+  // const obj = new FormData();
 
-      const { data } = await axiosRequest.post("Post/add-post", obj);
-      console.log(data);
+  // let ar = [...imageAddPost];
 
-      dispatch(closeModalAdd());
-    } catch (error) {}
-   
-  }
+  // for (let i = 0; i < ar.length; i++) {
+  //   obj.append("Images", ar[i]);
+  // }
+
+  // obj.append("Title", event.target["titleAdd"].value);
+  // obj.append("Content", event.target["contentAdd"].value);
+
+  //   try {
+  //     const { data } = await axiosRequest.post("Post/add-post", obj);
+  //     console.log(data);
+
+  //     dispatch(closeModalAdd())
+  //     dispatch(getMainPostsOfMainUser())
+  //     dispatch(getPosts())
+  //   } catch (error) {}
+  // };
 
   return (
     <div className="dark:bg-[#000]">
@@ -323,7 +339,7 @@ const Layout = () => {
               </li>
               <button
                 className="flex items-center gap-[20px] dark:text-[#fff] hover:bg-[#f0eeee] dark:hover:bg-[gray] p-[10px_10px] lg:w-[170px]  hover:rounded-[20px] cursor-pointer sm:w-[40px]"
-                onClick={() => dispatch(openAddModal())}
+                onClick={() => dispatch(openModalAddPost())}
               >
                 <CgAddR className="text-[30px]" />
                 <span className="sm:hidden lg:block text-[18px]">Create</span>
@@ -334,13 +350,19 @@ const Layout = () => {
                     to={`/home/profile`}
                     className="flex items-center gap-[20px] dark:text-[#fff] lg:w-[170px] hover:bg-[#f0eeee] dark:hover:bg-[gray] p-[10px_0px] hover:rounded-[20px] sm:w-[40px]"
                   >
-                    <img
-                      src={`${import.meta.env.VITE_API_URL}images/${
-                        dataUserName.image
-                      }`}
-                      alt=""
-                      className="w-[38px] h-[38px] rounded-full"
-                    />
+                    {mainUser.image === "" ? (
+                      <img
+                        src={`  ${"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}`}
+                        className="w-[38px] h-[38px] rounded-full"
+                      />
+                    ) : (
+                      <img
+                        src={`  ${import.meta.env.VITE_API_URL}images/${
+                          mainUser.image
+                        }`}
+                        className="w-[30px] h-[30px] rounded-full"
+                      />
+                    )}
                     <span className="sm:hidden lg:block text-[18px]">
                       Profile
                     </span>
@@ -380,7 +402,7 @@ const Layout = () => {
             <li>
               <CgAddR
                 className="text-[30px]"
-                onClick={() => dispatch(openAddModal())}
+                onClick={() => dispatch(openModalAddPost())}
               />
             </li>
             <li>
@@ -390,35 +412,64 @@ const Layout = () => {
             </li>
             <li>
               <Link to={`/home/profile`} className="lg:w-[150px] md:w-[30px]">
-                <img
-                  src={imgProfileLogo}
-                  alt=""
-                  className="w-[38px] h-[38px] rounded-full"
-                />
+                {mainUser.image === "" ? (
+                  <img
+                    src={`  ${"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}`}
+                    className="w-[38px] h-[38px] rounded-full"
+                  />
+                ) : (
+                  <img
+                    src={`  ${import.meta.env.VITE_API_URL}images/${
+                      mainUser.image
+                    }`}
+                    className="w-[30px] h-[30px] rounded-full"
+                  />
+                )}
               </Link>
             </li>
           </ul>
         </footer>
       </div>
       <Modal
-        open={modalCreate}
-        onClose={() => dispatch(handleClose())}
+        open={modalAddPost}
+        onClose={() => dispatch(handleCloseModalAddPost())}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         className="flex justify-center items-center"
       >
-        <Box className="w-[80%] py-[10px] bg-[#fff] outline-none rounded-[10px] dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff]">
+        <Box className="w-[30%] py-[10px] bg-[#fff] outline-none rounded-[10px] dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff] h-[70vh] overflow-auto">
           <div className="flex justify-between items-center px-[30px] border-b-[1px] border-b-[#000]">
             <h1 className="text-center py-[10px] dark:text-[#fff] dark:border-[#fff] text-[23px]">
               Create new post
             </h1>
-            <span className="text-[24px] cursor-pointer dark:text-[#fff]" onClick={()=>dispatch(closeAddModal())}>&times;</span>
+            <span
+              className="text-[24px] cursor-pointer dark:text-[#fff]"
+              onClick={() => dispatch(closeModalAddPost())}
+            >
+              &times;
+            </span>
           </div>
           <form
-            className="grid lg:grid-cols-[40%_60%] w-[100%] justify-center items-center"
-            onSubmit={PostData}
+            className="flex justify-center items-center h-[50vh]"
+            onSubmit={(event: any) => {
+              event.preventDefault();
+              const obj: FormData = new FormData();
+
+              let ar = [...imageAddPost];
+
+              for (let i = 0; i < ar.length; i++) {
+                obj.append("Images", ar[i]);
+              }
+              obj.append("Title", event.target["titleAdd"].value);
+              obj.append("Content", event.target["contentAdd"].value);
+
+              dispatch(addPost(obj));
+
+              dispatch(closeModalAdd());
+              dispatch(getMainPostsOfMainUser());
+            }}
           >
-            <div className="add_modal_block_2 flex flex-col items-center gap-[19px] md:p-[120px_40px] sm:w-[280px] md:w-[100%] sm:p-[30px] ">
+            <div className="add_modal_block_2 flex flex-col items-center gap-[19px]  sm:w-[280px] md:w-[100%]">
               <IoIosImages className="text-[80px] font-[100] dark:text-[#fff]" />
               <h1 className="text-[16px] font-[500] dark:text-[#fff]">
                 Drag photos and videos here
@@ -434,7 +485,7 @@ const Layout = () => {
                 name="imgAdd"
               />
             </div>
-            <div className="flex flex-col justify-center items-center gap-[20px]">
+            {/* <div className="flex flex-col justify-center items-center gap-[20px]">
               <input
                 type="text"
                 name="titleAdd"
@@ -462,7 +513,7 @@ const Layout = () => {
               <button className="p-[5px_40px] bg-[green] text-[#fff] rounded-[20px]">
                 Add
               </button>
-            </div>
+            </div> */}
           </form>
         </Box>
       </Modal>
@@ -472,6 +523,7 @@ const Layout = () => {
         onClose={() => dispatch(handleCloseMore())}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="fixed bottom-[-20px]"
       >
         <div className="p-[20px] outline-none dark:bg-[#1c1b1b] dark:border-[1px] dark:border-[#fff] w-[280px] flex flex-col gap-[8px]">
           <MenuItem>

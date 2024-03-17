@@ -41,7 +41,6 @@ export interface postsState {
 interface CounterState {
   modalCreate: boolean;
   modalMore: boolean;
-  modalSettingsOfPost: boolean;
   modalLogout: boolean;
   modalViewPosts: boolean;
   modalStory: boolean;
@@ -54,8 +53,8 @@ interface CounterState {
   search: string;
   userNameProfile: string;
   gotToken: IGotTokenState;
-  dataUserName: IDataUserNameState;
-  posts: postsState;
+  dataUserName: any;
+  posts: any;
   postId: number;
   userId: number;
 }
@@ -75,7 +74,6 @@ interface CounterState {
 const initialState: CounterState = {
   modalCreate: false,
   modalMore: false,
-  modalSettingsOfPost: false,
   modalLogout: false,
   modalViewPosts: false,
   modalStory: false,
@@ -96,17 +94,7 @@ const initialState: CounterState = {
     iss: "",
     aud: "",
   },
-  dataUserName: {
-    image: "",
-    dateUpdated: "",
-    gender: "",
-    firstName: "",
-    lastName: "",
-    locationId: 0,
-    dob: "",
-    occupation: "",
-    about: "",
-  },
+  dataUserName: [],
 
   // posts: {
   //   postId: 0,
@@ -141,17 +129,6 @@ export const counterSlice = createSlice({
     handleCloseMore(state: CounterState) {
       state.modalMore = false;
     },
-    openModalSettingsOfPost(state: CounterState, action) {
-      state.modalSettingsOfPost = true;
-      state.postId = action.payload.postId;
-      state.userId = action.payload.userId;
-    },
-    handleCloseSettingsOfPost(state: CounterState) {
-      state.modalSettingsOfPost = false;
-    },
-    closeModalSettingsOfPost(state: CounterState) {
-      state.modalSettingsOfPost = false;
-    },
     openLogoutModal(state: CounterState) {
       state.modalLogout = true;
       state.modalMore = false;
@@ -174,20 +151,13 @@ export const counterSlice = createSlice({
     handleCloseViewMyPostsOfProfileModal(state: CounterState) {
       state.modalViewPosts = false;
     },
-    likeActive(state: CounterState) {
-      state.like += 1;
-    },
-    likeInactive(state: CounterState) {
-      state.like += 1;
-    },
-    setGotToken(state: CounterState, action: PayloadAction<IGotTokenState>) {
-      state.gotToken = action.payload;
-    },
     setDataUserName(
       state: CounterState,
       action: PayloadAction<IDataUserNameState>
     ) {
       state.dataUserName = action.payload;
+      console.log(state.dataUserName);
+      
     },
     setPosts(state: CounterState, action: PayloadAction<postsState>) {
       state.posts = action.payload;
@@ -206,9 +176,6 @@ export const {
   closeModalAdd,
   openModalMore,
   handleCloseMore,
-  openModalSettingsOfPost,
-  handleCloseSettingsOfPost,
-  closeModalSettingsOfPost,
   openLogoutModal,
   // setModalStory,
   handleCloseLogoutModal,
@@ -216,9 +183,6 @@ export const {
   setSearch,
   openModalViewPostMine,
   handleCloseViewMyPostsOfProfileModal,
-  likeActive,
-  likeInactive,
-  setGotToken,
   setDataUserName,
   setPosts,
   closeAddModal

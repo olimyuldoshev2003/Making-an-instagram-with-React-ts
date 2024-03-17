@@ -3,14 +3,43 @@ import { Link, useNavigate } from "react-router-dom";
 import logoInstaSignUp from "../../assets/LOGO (1).png";
 import logoAppStore from "../../assets/image 4.png";
 import logoGooglePlay from "../../assets/image 5.png";
-import { TextField } from "@mui/material";
 import googleIcon from "../../assets/google.png";
 import { message } from "antd";
-import { useState } from "react";
+import React, { useState } from "react";
 import { axiosRequest } from "../../utils/axiosRequest";
 
+//For material ui
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import FilledInput from "@mui/material/FilledInput";
+
 const SignUp = () => {
-  const [name, setName] = useState<string>("");
+
+  //State and function for material ui show password in input of material ui
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+      const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+      ) => {
+        event.preventDefault();
+  };
+  
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+
+      const handleMouseDownConfirmPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+      ) => {
+        event.preventDefault();
+      };
+
+  
+  
+  const [userName, setUserName] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPasword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -19,24 +48,25 @@ const SignUp = () => {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const user = {
-      userName: name,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-    };
     try {
-      const { data } = await axiosRequest.post("/Account/register", user);
-      if (
-        data.statusCode === 200
-        // &&
-        // data.data !== "Your username or password is incorrect!!!"
-      ) {
-        navigate("/");
+      if (userName.trim().length === 0 || fullName.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0 || confirmPassword.trim().length === 0) {
+        message.error("Please fill all fields")
+      } else {
+        const user = {
+          userName: userName,
+          fullName: fullName,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+        };
+        const { data } = await axiosRequest.post("/Account/register", user);
+        if (data.statusCode === 200) {
+          message.success(data.message);
+          navigate("/");
+        } else {
+          message.error("You signed up wrong information");
+        }
       }
-      // else {
-      //   message.error("Wrong password or login !");
-      // }
     } catch (error) {}
   }
 
@@ -92,10 +122,36 @@ const SignUp = () => {
               label="Full name"
               variant="filled"
               type="text"
-              value={name}
+              value={userName}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setName(event.target.value)
+                setUserName(event.target.value)
               }
+              required
+            />
+            <TextField
+              InputProps={{
+                style: {
+                  color: "black",
+                  width: `280px`,
+                  height: `50px`,
+                  border: `none`,
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "gray",
+                  fontSize: `14px`,
+                },
+              }}
+              id="outlined-basic"
+              label="Full name"
+              variant="filled"
+              type="text"
+              value={fullName}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setFullName(event.target.value)
+              }
+              required
             />
             <TextField
               id="outlined-basic"
@@ -120,8 +176,9 @@ const SignUp = () => {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(event.target.value)
               }
+              required
             />
-            <TextField
+            {/* <TextField
               type="password"
               InputProps={{
                 style: {
@@ -144,6 +201,7 @@ const SignUp = () => {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setPasword(event.target.value)
               }
+              required
             />
             <TextField
               id="outlined-basic"
@@ -168,7 +226,60 @@ const SignUp = () => {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setConfirmPassword(event.target.value)
               }
-            />
+              required
+            /> */}
+            <FormControl sx={{ m: 1, width: "32ch" }} variant="filled">
+              <InputLabel htmlFor="filled-adornment-password">
+                Password
+              </InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                value={password}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setPasword(event.target.value)
+                }
+                required
+              />
+            </FormControl>
+            <FormControl sx={{ m: 1, width: "32ch" }} variant="filled">
+              <InputLabel htmlFor="filled-adornment-password">
+                Confirm password
+              </InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type={showConfirmPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownConfirmPassword}
+                      edge="end"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                value={confirmPassword}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setConfirmPassword(event.target.value)
+                }
+                required
+              />
+            </FormControl>
 
             <button
               type="submit"
