@@ -25,7 +25,7 @@ function getToken():IDecodedToken | null {
 }
 
 function destroyToken() {
-    localStorage.removeItem("acces.token")
+    localStorage.removeItem("access_token")
     localStorage.removeItem("rememberMe")
     window.location.pathname = "/"
 }
